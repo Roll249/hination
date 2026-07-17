@@ -110,32 +110,44 @@ class HawkesAttention(nn.Module):
     Models temporal clustering of disaster events
     """
     
-    def __init__(self, feature_dim: int, num_heads: int = 4):
+    def __init__(self, input_dim: int, num_heads: int = 4):
         super().__init__()
         
+        # Project input features to attention dimension
+        self.input_proj = nn.Linear(input_dim, 256)
+        
         self.attention = nn.MultiheadAttention(
-            embed_dim=feature_dim,
+            embed_dim=256,
             num_heads=num_heads,
             batch_first=True
         )
         
-        self.norm = nn.LayerNorm(feature_dim)
+        self.norm = nn.LayerNorm(256)
         
     def forward(
         self, 
         temporal_features: torch.Tensor,
         attention_mask: Optional[torch.Tensor] = None
     ) -> torch.Tensor:
-        # temporal_features: (batch, seq_len, feature_dim)
+        # temporal_features: (batch, seq_len, feature_dim) e.g. (16, 24, 8)
+        batch_size, seq_len, feat_dim = temporal_features.shape
+        
+        # Project each time step: (batch, seq_len, feat_dim) -> (batch, seq_len, 256)
+        x = self.input_proj(temporal_features)
         
         attn_out, attn_weights = self.attention(
-            temporal_features,
-            temporal_features,
-            temporal_features,
+            x, x, x,
             key_padding_mask=attention_mask
         )
         
-        return self.norm(temporal_features + attn_out)
+        return self.norm(x + attn_out)  # (batch, seq_len, 256)
+        
+        attn_out, attn_weights = self.attention(
+            x, x, x,
+            key_padding_mask=attention_mask
+        )
+        
+        return self.norm(x + attn_out)  # (batch, seq_len, 256)
 
 
 class DisasterPredictionModel(nn.Module):
@@ -176,8 +188,9 @@ class DisasterPredictionModel(nn.Module):
         )
         
         # Hawkes-style attention
+        # Pass input_dim (8) - will be projected to 256 internally
         self.hawkes_attention = HawkesAttention(
-            feature_dim=128 * 2,  # Bidirectional output
+            input_dim=temporal_input_dim,  # 8 features
             num_heads=4
         )
         
@@ -243,13 +256,12 @@ class DisasterPredictionModel(nn.Module):
         spatial_flat = spatial_features.view(batch_size, -1)
         
         # Temporal encoding
-        temporal_features = self.temporal_encoder(temporal_input)
+        temporal_features = self.temporal_encoder(temporal_input)  # (batch, 256)
         
-        # Hawkes attention on temporal features
-        temporal_seq = temporal_input  # (batch, seq_len, features)
-        temporal_attended = self.hawkes_attention(temporal_seq, attention_mask)
+        # Hawkes attention - pass temporal features (batch, 24, 8)
+        temporal_attended = self.hawkes_attention(temporal_input, attention_mask)
         
-        # Use last time step after attention
+        # Use last time step after attention (projected to 256)
         temporal_final = temporal_attended[:, -1, :]  # (batch, 256)
         
         # Fusion
@@ -291,6 +303,11 @@ class HawkesProcessLoss(nn.Module):
     ) -> dict:
         flood_pred, landslide_pred, cold_wave_pred, zonation_map = predictions
         flood_target, landslide_target, cold_wave_target = targets
+        
+        # Squeeze predictions to match target shape
+        flood_pred = flood_pred.squeeze(-1)
+        landslide_pred = landslide_pred.squeeze(-1)
+        cold_wave_pred = cold_wave_pred.squeeze(-1)
         
         # BCE loss for each disaster type
         loss_flood = self.bce(flood_pred, flood_target)

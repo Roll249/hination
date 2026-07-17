@@ -254,6 +254,16 @@ class WeatherDataPreprocessor:
 # Dataset Classes
 # ============================================================
 
+def collate_fn(batch):
+    """Custom collate function for variable length sequences"""
+    spatial, temporal, labels = zip(*batch)
+    return (
+        torch.stack(spatial),
+        torch.stack(temporal),
+        torch.stack(labels)
+    )
+
+
 class RealWeatherDataset(Dataset):
     """
     Dataset sử dụng dữ liệu thực từ Open-Meteo
@@ -355,9 +365,18 @@ class SyntheticDisasterGenerator:
                 'pressure': 1013 + np.random.normal(0, 5),
                 'cloud_cover': min(100, 30 + rainfall * 3 + np.random.normal(0, 10)),
                 'weather_code': 95 if rainfall > 10 and np.random.random() < 0.3 else (61 if rainfall > 0 else 0),
-                'hours_of_rain': weather_seq[-24]['hours_of_rain'] + 1 if is_raining and hour > 0 else (1 if is_raining else 0),
+                'hours_of_rain': 1 if is_raining else 0,
                 'consecutive_rain_hours': consecutive_rain
             })
+        
+        # Second pass: calculate hours_of_rain
+        running_hours = 0
+        for h in weather_seq:
+            if h['hours_of_rain'] == 1:
+                running_hours += 1
+                h['hours_of_rain'] = running_hours
+            else:
+                running_hours = 0
         
         return weather_seq
     
@@ -722,14 +741,14 @@ def train(
         batch_size=batch_size,
         shuffle=True,
         num_workers=CONFIG['num_workers'],
-        pin_memory=True
+        collate_fn=collate_fn
     )
     val_loader = DataLoader(
         val_dataset,
         batch_size=batch_size,
         shuffle=False,
         num_workers=CONFIG['num_workers'],
-        pin_memory=True
+        collate_fn=collate_fn
     )
     
     # Loss and optimizer
