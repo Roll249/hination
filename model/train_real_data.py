@@ -26,6 +26,70 @@ from model import DisasterPredictionModel, HawkesProcessLoss, get_model, MODEL_C
 
 
 # ============================================================
+# GPU Configuration
+# ============================================================
+
+def get_optimal_device() -> torch.device:
+    """Get the optimal device for training (GPU or CPU)"""
+    if torch.cuda.is_available():
+        # Log GPU info
+        gpu_count = torch.cuda.device_count()
+        print(f"\n=== GPU Configuration ===")
+        print(f"CUDA available: {torch.version.cuda}")
+        print(f"GPU count: {gpu_count}")
+        
+        for i in range(gpu_count):
+            gpu_name = torch.cuda.get_device_name(i)
+            total_mem = torch.cuda.get_device_properties(i).total_memory / 1e9
+            print(f"  GPU {i}: {gpu_name} ({total_mem:.1f} GB)")
+        
+        # Use first GPU by default
+        device = torch.device('cuda:0')
+        print(f"Using device: {device}")
+        return device
+    else:
+        print("\n=== GPU Configuration ===")
+        print("CUDA not available, using CPU")
+        return torch.device('cpu')
+
+
+def setup_gpu_optimizations():
+    """Enable GPU-specific optimizations"""
+    if torch.cuda.is_available():
+        # Enable cuDNN autotuner for faster training
+        torch.backends.cudnn.benchmark = True
+        # Enable TF32 for Ampere+ GPUs (faster fp32)
+        torch.backends.cuda.matmul.allow_tf32 = True
+        torch.backends.cudnn.allow_tf32 = True
+        print("GPU optimizations enabled: cuDNN benchmark, TF32")
+
+
+def get_gpu_memory_info(device: torch.device) -> Dict[str, float]:
+    """Get GPU memory usage information"""
+    if not torch.cuda.is_available():
+        return {}
+    
+    allocated = torch.cuda.memory_allocated(device) / 1e9
+    reserved = torch.cuda.memory_reserved(device) / 1e9
+    total = torch.cuda.get_device_properties(device).total_memory / 1e9
+    
+    return {
+        'allocated_gb': allocated,
+        'reserved_gb': reserved,
+        'total_gb': total,
+        'free_gb': total - reserved
+    }
+
+
+def print_gpu_memory(device: torch.device, prefix: str = ""):
+    """Print current GPU memory usage"""
+    if torch.cuda.is_available():
+        info = get_gpu_memory_info(device)
+        print(f"{prefix}GPU Memory: {info['allocated_gb']:.2f}GB allocated, "
+              f"{info['reserved_gb']:.2f}GB reserved, {info['free_gb']:.2f}GB free")
+
+
+# ============================================================
 # Configuration
 # ============================================================
 
@@ -46,6 +110,11 @@ CONFIG = {
     'prediction_horizon': 1,  # Predict 1 hour ahead
     'grid_resolution': 0.01,  # ~1km grid cells
     'num_workers': 4,
+    'pin_memory': True,  # Faster GPU transfer
+    
+    # GPU
+    'gpu_device': 0,  # Which GPU to use
+    'use_amp': True,  # Automatic Mixed Precision
     
     # Paths
     'data_dir': Path(__file__).parent.parent / 'data',
@@ -508,7 +577,9 @@ def train_epoch(
     criterion: HawkesProcessLoss,
     optimizer: optim.Optimizer,
     device: torch.device,
-    epoch: int
+    epoch: int,
+    scaler: Optional[torch.cuda.amp.GradScaler] = None,
+    use_amp: bool = False
 ) -> Dict[str, float]:
     """Train for one epoch"""
     model.train()
@@ -516,26 +587,47 @@ def train_epoch(
     losses = {'total': 0, 'flood': 0, 'landslide': 0, 'cold_wave': 0, 'zonation': 0}
     
     for batch_idx, (spatial, temporal, labels) in enumerate(dataloader):
-        spatial = spatial.to(device)
-        temporal = temporal.to(device)
-        labels = labels.to(device)
+        spatial = spatial.to(device, non_blocking=True)
+        temporal = temporal.to(device, non_blocking=True)
+        labels = labels.to(device, non_blocking=True)
         
-        optimizer.zero_grad()
-        predictions = model(spatial, temporal)
+        optimizer.zero_grad(set_to_none=True)  # Faster than zero_grad()
         
-        # Create zonation targets
-        batch_size = spatial.size(0)
-        zonation_targets = labels.unsqueeze(-1).unsqueeze(-1).repeat(1, 1, 64, 64) * 0.5
-        
-        loss_dict = criterion(
-            predictions,
-            (labels[:, 0], labels[:, 1], labels[:, 2]),
-            zonation_targets
-        )
-        
-        loss_dict['total'].backward()
-        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
-        optimizer.step()
+        if use_amp and scaler is not None:
+            with torch.cuda.amp.autocast(enabled=use_amp):
+                predictions = model(spatial, temporal)
+                
+                # Create zonation targets
+                batch_size = spatial.size(0)
+                zonation_targets = labels.unsqueeze(-1).unsqueeze(-1).repeat(1, 1, 64, 64) * 0.5
+                
+                loss_dict = criterion(
+                    predictions,
+                    (labels[:, 0], labels[:, 1], labels[:, 2]),
+                    zonation_targets
+                )
+            
+            scaler.scale(loss_dict['total']).backward()
+            scaler.unscale_(optimizer)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+            scaler.step(optimizer)
+            scaler.update()
+        else:
+            predictions = model(spatial, temporal)
+            
+            # Create zonation targets
+            batch_size = spatial.size(0)
+            zonation_targets = labels.unsqueeze(-1).unsqueeze(-1).repeat(1, 1, 64, 64) * 0.5
+            
+            loss_dict = criterion(
+                predictions,
+                (labels[:, 0], labels[:, 1], labels[:, 2]),
+                zonation_targets
+            )
+            
+            loss_dict['total'].backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+            optimizer.step()
         
         total_loss += loss_dict['total'].item()
         for key in losses:
@@ -555,7 +647,8 @@ def evaluate(
     model: DisasterPredictionModel,
     dataloader: DataLoader,
     criterion: HawkesProcessLoss,
-    device: torch.device
+    device: torch.device,
+    use_amp: bool = False
 ) -> Dict[str, float]:
     """Evaluate model"""
     model.eval()
@@ -565,11 +658,15 @@ def evaluate(
     
     with torch.no_grad():
         for spatial, temporal, labels in dataloader:
-            spatial = spatial.to(device)
-            temporal = temporal.to(device)
-            labels = labels.to(device)
+            spatial = spatial.to(device, non_blocking=True)
+            temporal = temporal.to(device, non_blocking=True)
+            labels = labels.to(device, non_blocking=True)
             
-            predictions = model(spatial, temporal)
+            if use_amp:
+                with torch.cuda.amp.autocast(enabled=use_amp):
+                    predictions = model(spatial, temporal)
+            else:
+                predictions = model(spatial, temporal)
             
             batch_size = spatial.size(0)
             zonation_targets = labels.unsqueeze(-1).unsqueeze(-1).repeat(1, 1, 64, 64) * 0.5
@@ -659,9 +756,11 @@ def train(
     batch_size: int = 32,
     model_size: str = 'small',
     use_real_data: bool = True,
-    fetch_new_data: bool = False
+    fetch_new_data: bool = False,
+    gpu_device: int = 0,
+    use_amp: bool = True
 ):
-    """Main training function"""
+    """Main training function with GPU support"""
     print("=" * 60)
     print("HINATION DISASTER PREDICTION MODEL TRAINING")
     print("=" * 60)
@@ -671,19 +770,41 @@ def train(
     print(f"  - Batch Size: {batch_size}")
     print(f"  - Model Size: {model_size}")
     print(f"  - Use Real Data: {use_real_data}")
+    print(f"  - GPU Device: cuda:{gpu_device}")
+    print(f"  - Mixed Precision (AMP): {use_amp}")
     print()
     
     # Setup device
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    if torch.cuda.is_available():
+        if gpu_device >= torch.cuda.device_count():
+            print(f"Warning: GPU {gpu_device} not available, using GPU 0")
+            gpu_device = 0
+        device = torch.device(f'cuda:{gpu_device}')
+    else:
+        device = torch.device('cpu')
+        use_amp = False  # AMP requires CUDA
+    
     print(f"Device: {device}")
+    setup_gpu_optimizations()
     
     # Create model
     model_config = MODEL_CONFIGS[model_size]
     model = get_model(model_config)
     model = model.to(device)
     
+    # Enable DataParallel if multiple GPUs available
+    if torch.cuda.device_count() > 1:
+        print(f"\nUsing DataParallel with {torch.cuda.device_count()} GPUs")
+        model = torch.nn.DataParallel(model)
+    
     num_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"Model parameters: {num_params:,}")
+    
+    # Create GradScaler for AMP
+    scaler = None
+    if use_amp and torch.cuda.is_available():
+        scaler = torch.cuda.amp.GradScaler(enabled=True)
+        print("Mixed Precision (AMP) enabled")
     
     # Collect data
     weather_data = []
@@ -736,19 +857,25 @@ def train(
     train_dataset = RealWeatherDataset(train_weather, train_labels, preprocessor)
     val_dataset = RealWeatherDataset(val_weather, val_labels, preprocessor)
     
+    # DataLoader with GPU optimizations
+    pin_memory = torch.cuda.is_available()
     train_loader = DataLoader(
         train_dataset,
         batch_size=batch_size,
         shuffle=True,
         num_workers=CONFIG['num_workers'],
-        collate_fn=collate_fn
+        collate_fn=collate_fn,
+        pin_memory=pin_memory,
+        persistent_workers=True
     )
     val_loader = DataLoader(
         val_dataset,
         batch_size=batch_size,
         shuffle=False,
         num_workers=CONFIG['num_workers'],
-        collate_fn=collate_fn
+        collate_fn=collate_fn,
+        pin_memory=pin_memory,
+        persistent_workers=True
     )
     
     # Loss and optimizer
@@ -771,10 +898,16 @@ def train(
         print(f"\nEpoch {epoch + 1}/{epochs}")
         print("-" * 40)
         
-        train_losses = train_epoch(model, train_loader, criterion, optimizer, device, epoch)
+        if torch.cuda.is_available():
+            torch.cuda.synchronize()
+        
+        train_losses = train_epoch(
+            model, train_loader, criterion, optimizer, device, epoch,
+            scaler=scaler, use_amp=use_amp
+        )
         scheduler.step()
         
-        val_metrics = evaluate(model, val_loader, criterion, device)
+        val_metrics = evaluate(model, val_loader, criterion, device, use_amp=use_amp)
         
         print(f"\nTrain Loss: {train_losses['total']:.4f}")
         print(f"  - Flood: {train_losses['flood']:.4f}")
@@ -785,6 +918,8 @@ def train(
         print(f"  - Flood F1: {val_metrics['flood_f1']:.4f}")
         print(f"  - Landslide F1: {val_metrics['landslide_f1']:.4f}")
         print(f"  - Cold Wave F1: {val_metrics['cold_wave_f1']:.4f}")
+        
+        print_gpu_memory(device, "  ")
         
         checkpoint_dir = Path(CONFIG['checkpoint_dir'])
         save_checkpoint(model, optimizer, epoch, val_metrics, checkpoint_dir)
@@ -804,6 +939,10 @@ def train(
             print(f"\n1-hour training limit reached after {epoch + 1} epochs")
             break
     
+    # Final cleanup
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    
     print("\n" + "=" * 60)
     print("TRAINING COMPLETE")
     print("=" * 60)
@@ -814,7 +953,7 @@ def train(
 if __name__ == '__main__':
     import argparse
     
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='Hination Disaster Prediction Training')
     parser.add_argument('--samples', type=int, default=10000, help='Number of training samples')
     parser.add_argument('--epochs', type=int, default=50, help='Number of epochs')
     parser.add_argument('--batch-size', type=int, default=32, help='Batch size')
@@ -822,7 +961,16 @@ if __name__ == '__main__':
     parser.add_argument('--synthetic', action='store_true', help='Use only synthetic data')
     parser.add_argument('--fetch', action='store_true', help='Fetch new data from Open-Meteo')
     
+    # GPU arguments
+    parser.add_argument('--gpu', type=int, default=0, help='GPU device ID (default: 0)')
+    parser.add_argument('--no-amp', action='store_true', help='Disable Automatic Mixed Precision')
+    parser.add_argument('--cpu', action='store_true', help='Force CPU training')
+    
     args = parser.parse_args()
+    
+    # Show GPU info before starting
+    if not args.cpu and torch.cuda.is_available():
+        get_optimal_device()
     
     model = train(
         num_samples=args.samples,
@@ -830,5 +978,7 @@ if __name__ == '__main__':
         batch_size=args.batch_size,
         model_size=args.model_size,
         use_real_data=not args.synthetic,
-        fetch_new_data=args.fetch
+        fetch_new_data=args.fetch,
+        gpu_device=args.gpu if not args.cpu else None,
+        use_amp=not args.no_amp and not args.cpu
     )
