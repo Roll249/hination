@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>HINATION - Disaster Forecast (GFS + Terrain)</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, "Segoe UI", sans-serif; }
+        body { background: #0a1929; color: #e0e6ed; min-height: 100vh; padding: 14px; }
+        .container { max-width: 1750px; margin: 0 auto; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; background: linear-gradient(135deg, #7f1d1d, #1e3a5f); border-radius: 12px; margin-bottom: 14px; }
+        h1 { font-size: 20px; }
+        .badge { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        .badge-live { background: #10b981; }
+        .badge-disaster { background: #dc2626; }
+        .live-dot { display: inline-block; width: 8px; height: 8px; background: #fff; border-radius: 50%; margin-right: 6px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        .main-grid { display: grid; grid-template-columns: 1fr 380px; gap: 14px; }
+        @media (max-width: 1100px) { .main-grid { grid-template-columns: 1fr; } }
+
+        #map { height: 580px; border-radius: 12px; }
+
+        .panel { background: #1a2942; border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+        .panel h3 { font-size: 13px; color: #94a3b8; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .time-card { background: linear-gradient(135deg, #7f1d1d, #1e3a5f); padding: 16px; border-radius: 12px; margin-bottom: 14px; border: 1px solid #dc2626; }
+        .time-display { font-size: 26px; font-weight: 700; color: #fbbf24; }
+        .time-sub { font-size: 12px; color: #94a3b8; margin-bottom: 12px; }
+        .slider-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .slider-row input[type=range] { flex: 1; accent-color: #fbbf24; }
+        .slider-row button { background: #2563eb; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .slider-row button:hover { background: #1d4ed8; }
+        .slider-row button.active { background: #f59e0b; }
+
+        .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 10px; }
+        .day-cell { background: #0f1f33; padding: 8px; border-radius: 6px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.15s; }
+        .day-cell:hover { background: #1e3a5f; }
+        .day-cell.active { border-color: #fbbf24; background: #1e3a5f; }
+        .day-cell .lbl { font-size: 9px; color: #64748b; text-transform: uppercase; }
+        .day-cell .dt { font-size: 13px; font-weight: 600; margin: 4px 0; }
+        .day-cell .risk { font-size: 11px; }
+
+        .district-list { max-height: 380px; overflow-y: auto; }
+        .district-item {
+            display: flex; flex-direction: column; gap: 6px;
+            padding: 10px 12px; background: #0f1f33;
+            margin-bottom: 6px; border-radius: 6px;
+            cursor: pointer; transition: background 0.15s;
+            border-left: 3px solid transparent;
+        }
+        .district-item:hover { background: #1e3a5f; }
+        .district-item.active { background: #1e40af; border-left-color: #fbbf24; }
+
+        .district-row { display: flex; justify-content: space-between; align-items: center; }
+        .district-name { font-size: 13px; font-weight: 600; }
+        .alert-pill { padding: 3px 8px; border-radius: 10px; font-size: 10px; font-weight: 700; white-space: nowrap; }
+        .alert-1 { background: #14532d; color: #86efac; }
+        .alert-2 { background: #713f12; color: #fde047; }
+        .alert-3 { background: #7f1d1d; color: #fca5a5; }
+        .alert-4 { background: #4c0519; color: #fecaca; animation: blink 1.5s infinite; }
+        .alert-5 { background: #450a0a; color: #fff; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { box-shadow: 0 0 0 0 currentColor; } 50% { box-shadow: 0 0 8px 2px currentColor; } }
+
+        .district-meta { display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: #94a3b8; }
+        .dominant-tag { display: inline-flex; align-items: center; gap: 3px; padding: 2px 6px; background: #1e293b; border-radius: 8px; font-size: 10px; }
+        .peak-time { font-size: 9px; color: #64748b; }
+
+        .risk-bar { height: 4px; background: #1e293b; border-radius: 2px; overflow: hidden; }
+        .risk-bar-fill { height: 100%; transition: width 0.3s; }
+
+        .sort-row { display: flex; gap: 4px; margin-bottom: 8px; flex-wrap: wrap; }
+        .sort-btn { padding: 4px 8px; background: #1e293b; color: #94a3b8; border: 1px solid #334155; border-radius: 4px; font-size: 10px; cursor: pointer; }
+        .sort-btn.active { background: #1e40af; color: #fff; border-color: #38bdf8; }
+
+        .disaster-icon { font-size: 16px; margin-right: 6px; }
+
+        .info-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 12px; border-bottom: 1px solid #1e293b; }
+        .label { color: #94a3b8; }
+        .value { color: #e0e6ed; font-weight: 600; }
+
+        .alerts-panel { max-height: 240px; overflow-y: auto; font-size: 11px; }
+        .alert-item { display: flex; align-items: center; padding: 6px 8px; background: #0f1f33; margin-bottom: 4px; border-radius: 6px; border-left: 3px solid transparent; }
+        .alert-item.l3 { border-left-color: #f59e0b; }
+        .alert-item.l4 { border-left-color: #dc2626; }
+        .alert-item.l5 { border-left-color: #fecaca; background: #2d0a0a; }
+
+        .alert-item .time { color: #94a3b8; margin-right: 6px; font-size: 10px; }
+        .alert-item .name { font-weight: 600; flex: 1; }
+        .alert-item .type { font-size: 10px; color: #fbbf24; margin-left: 4px; }
+
+        .risk-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+        .risk-card { background: #0f1f33; padding: 10px; border-radius: 6px; text-align: center; border-top: 3px solid transparent; }
+        .risk-card.flood { border-top-color: #3b82f6; }
+        .risk-card.landslide { border-top-color: #a16207; }
+        .risk-card.storm { border-top-color: #8b5cf6; }
+        .risk-card.wildfire { border-top-color: #f97316; }
+        .risk-card .v { font-size: 18px; font-weight: 700; }
+        .risk-card .l { font-size: 10px; color: #94a3b8; text-transform: uppercase; margin-top: 4px; }
+
+        .chart-container { height: 220px; margin-top: 10px; }
+
+        .terrain-info { font-size: 11px; }
+        .terrain-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #1e293b; }
+
+        .history-stat { display: flex; gap: 12px; margin-top: 8px; }
+        .hist { flex: 1; text-align: center; padding: 6px; background: #0f1f33; border-radius: 6px; }
+        .hist .n { font-size: 18px; font-weight: 700; color: #fbbf24; }
+        .hist .l { font-size: 10px; color: #94a3b8; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>🚨 HINATION - Disaster Forecast</h1>
+        <div>
+            <span class="badge badge-disaster"><span class="live-dot"></span>DISASTER ALERTS</span>
+            <span class="badge badge-live"><span class="live-dot"></span>GFS LIVE</span>
+            <span id="last-updated" style="margin-left: 10px; font-size: 11px; color: #94a3b8;"></span>
+        </div>
+    </header>
+
+    <div class="main-grid">
+        <div>
+            <div class="time-card">
+                <div class="time-display" id="time-display">Loading...</div>
+                <div class="time-sub" id="time-sub"></div>
+                <div class="slider-row">
+                    <input type="range" id="hour-slider" min="0" max="167" value="0" step="1"/>
+                    <button id="play-btn">▶ Play</button>
+                    <button id="reset-btn">↻</button>
+                </div>
+                <div class="days-grid" id="days-grid"></div>
+            </div>
+
+            <div id="map"></div>
+
+            <div class="panel" style="margin-top: 14px;">
+                <h3>📈 Selected: <span id="chart-dist">--</span></h3>
+                <div class="risk-grid" id="risk-grid"></div>
+                <div class="chart-container">
+                    <canvas id="risk-chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="panel">
+                <h3>📍 Districts (9 huyện)</h3>
+                <div class="sort-row">
+                    <button class="sort-btn active" data-sort="risk">Sắp xếp theo Risk</button>
+                    <button class="sort-btn" data-sort="name">Theo tên</button>
+                    <button class="sort-btn" data-sort="terrain">Theo địa hình</button>
+                </div>
+                <div class="district-list" id="district-list"></div>
+            </div>
+
+            <div class="panel">
+                <h3>🚨 Active Alerts</h3>
+                <div class="alerts-panel" id="alerts-list"></div>
+            </div>
+
+            <div class="panel terrain-info">
+                <h3>⛰️ Terrain: <span id="terrain-dist">--</span></h3>
+                <div class="terrain-row"><span class="label">Độ cao:</span><span class="value" id="terrain-elev">--</span></div>
+                <div class="terrain-row"><span class="label">Độ dốc:</span><span class="value" id="terrain-slope">--</span></div>
+                <div class="terrain-row"><span class="label">Loại đất:</span><span class="value" id="terrain-soil">--</span></div>
+                <div class="terrain-row"><span class="label">Sông gần:</span><span class="value" id="terrain-river">--</span></div>
+                <div class="history-stat">
+                    <div class="hist"><div class="n" id="hist-flood">--</div><div class="l">Lũ lịch sử</div></div>
+                    <div class="hist"><div class="n" id="hist-land">--</div><div class="l">Sạt lở LS</div></div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h3>🤖 Methodology</h3>
+                <div class="info-row"><span class="label">Weather:</span><span class="value">GFS 13km (NOAA)</span></div>
+                <div class="info-row"><span class="label">Terrain:</span><span class="value">Slope/Soil/Elevation</span></div>
+                <div class="info-row"><span class="label">History:</span><span class="value">2018-2024 events</span></div>
+                <div class="info-row"><span class="label">Standards:</span><span class="value">VNDMS QĐ 18/2021</span></div>
+                <div class="info-row"><span class="label">4 disaster types:</span><span class="value" style="font-size: 11px;">Flood, Landslide, Storm, Wildfire</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ============================================================
+// State
+// ============================================================
+let map, markers = {}, dienBienLayer;
+let disasterData = null;
+let weatherData = null;
+let currentHourIdx = 0;
+let selectedDistrict = null;
+let playing = false;
+let playInterval = null;
+let chart = null;
+
+// Vietnam VNDMS colors per alert level
+const ALERT_COLORS = {
+    1: '#10b981', // green
+    2: '#fbbf24', // yellow
+    3: '#f97316', // orange
+    4: '#dc2626', // red
+    5: '#7f1d1d'  // dark red
+};
+
+const ALERT_LABELS = {
+    1: 'An toàn',
+    2: 'Theo dõi',
+    3: 'Cảnh báo',
+    4: 'Nguy hiểm',
+    5: 'Thảm họa'
+};
+
+const DISASTER_ICONS = {
+    flood: '🌊',
+    landslide: '⛰️',
+    storm: '🌀',
+    wildfire: '🔥'
+};
+
+const DISASTER_LABELS = {
+    flood: 'Lũ lụt',
+    landslide: 'Sạt lở',
+    storm: 'Bão',
+    wildfire: 'Cháy rừng'
+};
+
+// ============================================================
+// Init
+// ============================================================
+async function init() {
+    // Initialize map but don't set view yet (will fit to Điện Biên)
+    map = L.map('map', { zoomControl: true });
+
+    // Load Điện Biên boundary first to fit bounds
+    try {
+        const geoResp = await fetch('../data/geo/dien_bien_boundary.geojson');
+        const geoData = await geoResp.json();
+
+        // Điện Biên boundary - chỉ hiện ranh giới tỉnh này
+        dienBienLayer = L.geoJSON(geoData, {
+            style: {
+                color: '#dc2626',
+                weight: 4,
+                opacity: 1,
+                fillColor: '#fbbf24',
+                fillOpacity: 0.10,
+                dashArray: '8, 4'
+            }
+        }).addTo(map);
+
+        // Fit map to Điện Biên bounds
+        map.fitBounds(dienBienLayer.getBounds(), { padding: [20, 20] });
+    } catch (e) {
+        console.error('Failed to load Điện Biên boundary:', e);
+        // Fallback: use hardcoded center
+        map.setView([21.8, 102.9], 8);
+    }
+
+    // Outside Điện Biên: OpenStreetMap (có biên giới + đủ tool)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 19
+    }).addTo(map);
+
+    await Promise.all([loadDisasterData(), loadWeatherData()]);
+    setupSlider();
+    setupDaysGrid();
+    setupDistricts();
+    setupChart();
+    setupAlerts();
+}
+
+// ============================================================
+// Data loading
+// ============================================================
+async function loadDisasterData() {
+    try {
+        const resp = await fetch('../data/predictions/disaster_forecast.json');
+        disasterData = await resp.json();
+        document.getElementById('last-updated').textContent =
+            new Date(disasterData.generated_at).toLocaleString('vi-VN');
+
+        // Add markers
+        for (const [did, df] of Object.entries(disasterData.districts)) {
+            const maxLevel = Math.max(...df.forecast_hours.map(h => h.alert_level));
+            const marker = L.circleMarker([df.coordinates.lat, df.coordinates.lon], {
+                radius: 14,
+                fillColor: ALERT_COLORS[maxLevel],
+                color: '#fff',
+                weight: 2,
+                fillOpacity: 0.85
+            }).addTo(map);
+            marker.bindTooltip(`<b>${df.name}</b><br>Peak: L${maxLevel}`);
+            marker.on('click', () => selectDistrict(did));
+            markers[did] = marker;
+        }
+    } catch (e) {
+        console.error('Failed to load disaster data:', e);
+    }
+}
+
+async function loadWeatherData() {
+    try {
+        const resp = await fetch('../data/predictions/hourly_forecast.json');
+        weatherData = await resp.json();
+    } catch (e) {
+        console.error('Failed to load weather data:', e);
+    }
+}
+
+// ============================================================
+// Slider
+// ============================================================
+function setupSlider() {
+    document.getElementById('hour-slider').addEventListener('input', e => {
+        currentHourIdx = parseInt(e.target.value);
+        updateAll();
+    });
+    document.getElementById('play-btn').addEventListener('click', togglePlay);
+    document.getElementById('reset-btn').addEventListener('click', () => {
+        currentHourIdx = 0;
+        document.getElementById('hour-slider').value = 0;
+        updateAll();
+    });
+}
+
+function togglePlay() {
+    playing = !playing;
+    const btn = document.getElementById('play-btn');
+    btn.textContent = playing ? '⏸ Pause' : '▶ Play';
+    btn.classList.toggle('active', playing);
+
+    if (playing) {
+        playInterval = setInterval(() => {
+            currentHourIdx = (currentHourIdx + 1) % 168;
+            document.getElementById('hour-slider').value = currentHourIdx;
+            updateAll();
+        }, 500);
+    } else {
+        clearInterval(playInterval);
+    }
+}
+
+// ============================================================
+// Days Grid
+// ============================================================
+function setupDaysGrid() {
+    const grid = document.getElementById('days-grid');
+    grid.innerHTML = '';
+    if (!disasterData) return;
+
+    const firstKey = Object.keys(disasterData.districts)[0];
+    const firstHours = disasterData.districts[firstKey].forecast_hours;
+
+    for (let day = 0; day < 7; day++) {
+        const dayHours = firstHours.filter(h => h.day_offset === day + 1);
+        if (!dayHours.length) continue;
+
+        const maxRisk = Math.max(...dayHours.map(h => h.overall_risk));
+        const maxLevel = Math.max(...dayHours.map(h => h.alert_level));
+        const color = ALERT_COLORS[maxLevel];
+
+        const h0 = dayHours[0];
+        const dt = new Date(h0.datetime);
+
+        const cell = document.createElement('div');
+        cell.className = 'day-cell';
+        cell.dataset.day = day + 1;
+        cell.innerHTML = `
+            <div class="lbl">Ngày ${day + 1}</div>
+            <div class="dt">${dt.toLocaleDateString('vi-VN', {month: 'numeric', day: 'numeric'})}</div>
+            <div class="risk" style="color: ${color}">L${maxLevel} ${(maxRisk * 100).toFixed(0)}%</div>
+        `;
+        cell.addEventListener('click', () => {
+            currentHourIdx = day * 24;
+            document.getElementById('hour-slider').value = currentHourIdx;
+            updateAll();
+        });
+        grid.appendChild(cell);
+    }
+}
+
+function updateDaysGridActive() {
+    document.querySelectorAll('.day-cell').forEach(cell => {
+        const day = parseInt(cell.dataset.day);
+        cell.classList.toggle('active', day === Math.floor(currentHourIdx / 24) + 1);
+    });
+}
+
+// ============================================================
+// Time Display
+// ============================================================
+function updateTimeDisplay() {
+    if (!disasterData) return;
+    const firstKey = Object.keys(disasterData.districts)[0];
+    const h = disasterData.districts[firstKey].forecast_hours[currentHourIdx];
+    if (!h) return;
+
+    const dt = new Date(h.datetime);
+    const dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+    document.getElementById('time-display').textContent = dt.toLocaleString('vi-VN', {
+        hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit'
+    });
+    document.getElementById('time-sub').textContent =
+        `${dayNames[dt.getDay()]} | Ngày ${h.day_offset}/7 | Hour ${h.hour_offset}/168`;
+}
+
+// ============================================================
+// Markers (color by alert level)
+// ============================================================
+function updateMarkers() {
+    if (!disasterData) return;
+    for (const [did, df] of Object.entries(disasterData.districts)) {
+        const h = df.forecast_hours[currentHourIdx];
+        if (!h) continue;
+
+        const color = ALERT_COLORS[h.alert_level];
+        const radius = 10 + h.alert_level * 4;
+
+        markers[did].setStyle({
+            fillColor: color,
+            radius: radius
+        });
+
+        const dominant = h.dominant_disaster;
+        markers[did].setTooltipContent(
+            `<b>${df.name}</b><br>` +
+            `<span class="disaster-icon">${DISASTER_ICONS[dominant]}</span>` +
+            `${DISASTER_LABELS[dominant]}<br>` +
+            `<b style="color: ${color}">L${h.alert_level} ${ALERT_LABELS[h.alert_level]}</b><br>` +
+            `Overall: ${(h.overall_risk * 100).toFixed(0)}%<br>` +
+            `Mưa 24h: ${h.precip_24h.toFixed(0)}mm`
+        );
+    }
+}
+
+// ============================================================
+// Districts List (with peak risk + dominant + sort)
+// ============================================================
+let currentSort = 'risk';
+
+function setupDistricts() {
+    document.querySelectorAll('.sort-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentSort = btn.dataset.sort;
+            renderDistrictList();
+        });
+    });
+    renderDistrictList();
+
+    const firstKey = Object.keys(disasterData.districts)[0];
+    selectDistrict(firstKey);
+}
+
+function renderDistrictList() {
+    const list = document.getElementById('district-list');
+    list.innerHTML = '';
+    if (!disasterData) return;
+
+    // Compute peak risk for each district
+    const entries = Object.entries(disasterData.districts).map(([did, df]) => {
+        const peakHour = df.forecast_hours.reduce((max, h) =>
+            h.overall_risk > max.overall_risk ? h : max, df.forecast_hours[0]);
+        const currentHour = df.forecast_hours[currentHourIdx];
+        return {
+            did, df, peakHour, currentHour
+        };
+    });
+
+    // Sort
+    if (currentSort === 'risk') {
+        entries.sort((a, b) => b.peakHour.overall_risk - a.peakHour.overall_risk);
+    } else if (currentSort === 'name') {
+        entries.sort((a, b) => a.df.name.localeCompare(b.df.name));
+    } else if (currentSort === 'terrain') {
+        entries.sort((a, b) => b.df.terrain.slope - a.df.terrain.slope);
+    }
+
+    for (const { did, df, peakHour, currentHour } of entries) {
+        const item = document.createElement('div');
+        item.className = 'district-item';
+        item.dataset.district = did;
+        const peakTime = new Date(peakHour.datetime);
+        const peakTimeStr = `${peakTime.toLocaleDateString('vi-VN', {month: 'numeric', day: 'numeric'})} ${peakTime.getHours()}h`;
+
+        item.innerHTML = `
+            <div class="district-row">
+                <span class="district-name">${df.name}</span>
+                <span class="alert-pill" id="alert-${did}">--</span>
+            </div>
+            <div class="district-meta">
+                <span class="dominant-tag">
+                    ${DISASTER_ICONS[peakHour.dominant_disaster]}
+                    ${DISASTER_LABELS[peakHour.dominant_disaster]}
+                </span>
+                <span class="peak-time">Peak: ${peakTimeStr}</span>
+            </div>
+            <div class="risk-bar">
+                <div class="risk-bar-fill" id="bar-${did}"
+                    style="width: ${peakHour.overall_risk * 100}%; background: ${ALERT_COLORS[peakHour.alert_level]}"></div>
+            </div>
+        `;
+        item.addEventListener('click', () => selectDistrict(did));
+        list.appendChild(item);
+    }
+    updateDistricts();
+}
+
+function updateDistricts() {
+    if (!disasterData) return;
+    for (const [did, df] of Object.entries(disasterData.districts)) {
+        const h = df.forecast_hours[currentHourIdx];
+        if (!h) continue;
+        const pill = document.getElementById(`alert-${did}`);
+        if (pill) {
+            pill.className = `alert-pill alert-${h.alert_level}`;
+            pill.innerHTML = `${DISASTER_ICONS[h.dominant_disaster]} L${h.alert_level}`;
+        }
+    }
+}
+
+function selectDistrict(did) {
+    selectedDistrict = did;
+    document.querySelectorAll('.district-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.district === did);
+    });
+    if (map && markers[did]) {
+        map.setView(markers[did].getLatLng(), 9, { animate: true });
+    }
+    updateRiskGrid();
+    updateChart();
+    updateTerrainInfo();
+}
+
+function updateRiskGrid() {
+    if (!selectedDistrict || !disasterData) return;
+    const df = disasterData.districts[selectedDistrict];
+    const h = df.forecast_hours[currentHourIdx];
+    if (!h) return;
+
+    document.getElementById('chart-dist').textContent = df.name;
+
+    const grid = document.getElementById('risk-grid');
+    grid.innerHTML = `
+        <div class="risk-card flood">
+            <div class="v">${(h.risks.flood * 100).toFixed(0)}%</div>
+            <div class="l">🌊 Lũ lụt</div>
+        </div>
+        <div class="risk-card landslide">
+            <div class="v">${(h.risks.landslide * 100).toFixed(0)}%</div>
+            <div class="l">⛰️ Sạt lở</div>
+        </div>
+        <div class="risk-card storm">
+            <div class="v">${(h.risks.storm * 100).toFixed(0)}%</div>
+            <div class="l">🌀 Bão</div>
+        </div>
+        <div class="risk-card wildfire">
+            <div class="v">${(h.risks.wildfire * 100).toFixed(0)}%</div>
+            <div class="l">🔥 Cháy rừng</div>
+        </div>
+    `;
+}
+
+function updateTerrainInfo() {
+    if (!selectedDistrict || !disasterData) return;
+    const df = disasterData.districts[selectedDistrict];
+    const t = df.terrain;
+
+    document.getElementById('terrain-dist').textContent = df.name;
+    document.getElementById('terrain-elev').textContent = `${t.elevation}m`;
+    document.getElementById('terrain-slope').textContent = `${t.slope}°`;
+    document.getElementById('terrain-soil').textContent = t.soil_type;
+    document.getElementById('terrain-river').textContent = 'Có';  // TODO: read from data
+    document.getElementById('hist-flood').textContent = t.flood_history;
+    document.getElementById('hist-land').textContent = t.landslide_history;
+}
+
+// ============================================================
+// Chart (48h risk timeline)
+// ============================================================
+function setupChart() {
+    const ctx = document.getElementById('risk-chart').getContext('2d');
+    chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [
+                { label: '🌊 Lũ lụt', data: [], borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', tension: 0.3 },
+                { label: '⛰️ Sạt lở', data: [], borderColor: '#a16207', backgroundColor: 'rgba(161,98,7,0.1)', tension: 0.3 },
+                { label: '🌀 Bão', data: [], borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,0.1)', tension: 0.3 },
+                { label: '🔥 Cháy rừng', data: [], borderColor: '#f97316', backgroundColor: 'rgba(249,115,22,0.1)', tension: 0.3 }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+                legend: { labels: { color: '#e0e6ed', font: { size: 11 } } },
+                tooltip: { callbacks: { label: ctx => `${ctx.dataset.label}: ${(ctx.parsed.y * 100).toFixed(0)}%` } }
+            },
+            scales: {
+                x: { ticks: { color: '#94a3b8', font: { size: 10 }, maxRotation: 0 }, grid: { color: '#1e293b' } },
+                y: { min: 0, max: 1, ticks: { color: '#94a3b8', callback: v => `${(v * 100).toFixed(0)}%` }, grid: { color: '#1e293b' } }
+            }
+        }
+    });
+}
+
+function updateChart() {
+    if (!selectedDistrict || !disasterData) return;
+    const df = disasterData.districts[selectedDistrict];
+
+    const start = currentHourIdx;
+    const end = Math.min(168, start + 48);
+    const hours = df.forecast_hours.slice(start, end);
+
+    chart.data.labels = hours.map(h => {
+        const dt = new Date(h.datetime);
+        return `${dt.toLocaleDateString('vi-VN', {month: 'numeric', day: 'numeric'})} ${dt.getHours()}h`;
+    });
+    chart.data.datasets[0].data = hours.map(h => h.risks.flood);
+    chart.data.datasets[1].data = hours.map(h => h.risks.landslide);
+    chart.data.datasets[2].data = hours.map(h => h.risks.storm);
+    chart.data.datasets[3].data = hours.map(h => h.risks.wildfire);
+    chart.update('none');
+}
+
+// ============================================================
+// Alerts Panel
+// ============================================================
+function setupAlerts() {
+    const list = document.getElementById('alerts-list');
+    list.innerHTML = '';
+
+    if (!disasterData || !disasterData.alerts) return;
+
+    // Take top 30 alerts (highest level first)
+    const topAlerts = disasterData.alerts.slice(0, 30);
+
+    if (topAlerts.length === 0) {
+        list.innerHTML = '<div style="color: #94a3b8; padding: 10px;">Không có cảnh báo</div>';
+        return;
+    }
+
+    for (const alert of topAlerts) {
+        const dt = new Date(alert.datetime);
+        const item = document.createElement('div');
+        item.className = `alert-item l${alert.level}`;
+        item.innerHTML = `
+            <span class="time">${dt.toLocaleDateString('vi-VN', {month: 'numeric', day: 'numeric'})} ${dt.getHours()}h</span>
+            <span class="name">${alert.district_name}</span>
+            <span class="type">${DISASTER_ICONS[alert.dominant]} ${DISASTER_LABELS[alert.dominant]}</span>
+            <span class="alert-pill alert-${alert.level}">L${alert.level}</span>
+        `;
+        item.addEventListener('click', () => {
+            map.setView([alert.coordinates.lat, alert.coordinates.lon], 10);
+            selectDistrict(alert.district_id);
+        });
+        list.appendChild(item);
+    }
+}
+
+// ============================================================
+// Main update
+// ============================================================
+function updateAll() {
+    updateTimeDisplay();
+    updateMarkers();
+    updateDistricts();
+    updateRiskGrid();
+    updateChart();
+    updateDaysGridActive();
+}
+
+init();
+</script>
+</body>
+</html>

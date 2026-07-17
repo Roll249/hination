@@ -1,0 +1,33 @@
+# HINATION - Weather Disaster Prediction System
+# Requirements for ML pipeline, API, and dashboard
+
+# Core ML/Data Science
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+
+# Deep Learning
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Time Series & Statistics
+statsmodels>=0.14.0
+scipy>=1.10.0
+
+# API
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+pydantic>=2.0.0
+
+# HTTP
+requests>=2.31.0
+aiohttp>=3.8.0
+
+# Geospatial
+folium>=0.14.0
+shapely>=2.0.0
+
+# Utilities
+python-dotenv>=1.0.0
+tqdm>=4.65.0
+matplotlib>=3.7.0
