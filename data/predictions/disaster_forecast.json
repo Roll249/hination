@@ -6,10 +6,10 @@
   "districts": {
     "dien_bien_phu": {
       "district_id": "dien_bien_phu",
-      "name": "TP Điện Biên Phủ",
+      "name": "Phường Điện Biên Phủ",
       "coordinates": {
-        "lat": 21.3869,
-        "lon": 103.0228
+        "lat": 21.4140962,
+        "lon": 103.0576943
       },
       "terrain": {
         "elevation": 483,
@@ -2875,14 +2875,15 @@
           "dominant_disaster": "wildfire",
           "message_vi": "Rủi ro cháy thấp."
         }
-      ]
+      ],
+      "ma": "03127"
     },
     "tuan_giao": {
       "district_id": "tuan_giao",
-      "name": "Huyện Tuần Giáo",
+      "name": "Xã Tuần Giáo",
       "coordinates": {
-        "lat": 21.6167,
-        "lon": 103.25
+        "lat": 21.6307492,
+        "lon": 103.4439122
       },
       "terrain": {
         "elevation": 1047,
@@ -5748,14 +5749,15 @@
           "dominant_disaster": "wildfire",
           "message_vi": "Rủi ro cháy thấp."
         }
-      ]
+      ],
+      "ma": "03253"
     },
     "tua_chua": {
       "district_id": "tua_chua",
-      "name": "Huyện Tủa Chùa",
+      "name": "Xã Tủa Chùa",
       "coordinates": {
-        "lat": 21.4667,
-        "lon": 103.4333
+        "lat": 21.8221187,
+        "lon": 103.3617164
       },
       "terrain": {
         "elevation": 1565,
@@ -8621,14 +8623,15 @@
           "dominant_disaster": "wildfire",
           "message_vi": "Rủi ro cháy thấp."
         }
-      ]
+      ],
+      "ma": "03217"
     },
     "muong_cha": {
       "district_id": "muong_cha",
-      "name": "Huyện Mường Chà",
+      "name": "Xã Mường Chà",
       "coordinates": {
-        "lat": 22.0833,
-        "lon": 102.4333
+        "lat": 21.9786223,
+        "lon": 102.7777717
       },
       "terrain": {
         "elevation": 500,
@@ -11494,14 +11497,15 @@
           "dominant_disaster": "flood",
           "message_vi": "Mưa nhỏ 0.4mm. Theo dõi."
         }
-      ]
+      ],
+      "ma": "03166"
     },
     "muong_nhe": {
       "district_id": "muong_nhe",
-      "name": "Huyện Mường Nhé",
+      "name": "Xã Mường Nhé",
       "coordinates": {
-        "lat": 22.4167,
-        "lon": 102.3
+        "lat": 22.2169654,
+        "lon": 102.4203498
       },
       "terrain": {
         "elevation": 600,
@@ -14367,14 +14371,15 @@
           "dominant_disaster": "flood",
           "message_vi": "Mưa nhỏ 0.8mm. Theo dõi."
         }
-      ]
+      ],
+      "ma": "03160"
     },
     "dien_bien_dong": {
       "district_id": "dien_bien_dong",
-      "name": "Huyện Điện Biên Đông",
+      "name": "Xã Na Son",
       "coordinates": {
-        "lat": 21.1833,
-        "lon": 103.55
+        "lat": 21.2972456,
+        "lon": 103.2143726
       },
       "terrain": {
         "elevation": 800,
@@ -17240,14 +17245,15 @@
           "dominant_disaster": "wildfire",
           "message_vi": "Rủi ro cháy thấp."
         }
-      ]
+      ],
+      "ma": "03203"
     },
     "nam_po": {
       "district_id": "nam_po",
-      "name": "Huyện Nậm Pồ",
+      "name": "Xã Si Pa Phìn",
       "coordinates": {
-        "lat": 21.65,
-        "lon": 103.1167
+        "lat": 21.8098376,
+        "lon": 102.9201731
       },
       "terrain": {
         "elevation": 700,
@@ -20113,14 +20119,15 @@
           "dominant_disaster": "wildfire",
           "message_vi": "Rủi ro cháy thấp."
         }
-      ]
+      ],
+      "ma": "03199"
     },
     "muong_ang": {
       "district_id": "muong_ang",
-      "name": "Huyện Mường Ảng",
+      "name": "Xã Mường Ảng",
       "coordinates": {
-        "lat": 21.8167,
-        "lon": 103.0833
+        "lat": 21.4888505,
+        "lon": 103.2218525
       },
       "terrain": {
         "elevation": 650,
@@ -22986,14 +22993,15 @@
           "dominant_disaster": "flood",
           "message_vi": "Mưa nhỏ 0.6mm. Theo dõi."
         }
-      ]
+      ],
+      "ma": "03256"
     },
     "muong_lay": {
       "district_id": "muong_lay",
-      "name": "Thị xã Mường Lay",
+      "name": "Phường Mường Lay",
       "coordinates": {
-        "lat": 22.5,
-        "lon": 102.6833
+        "lat": 22.0160376,
+        "lon": 103.1782851
       },
       "terrain": {
         "elevation": 450,
@@ -25859,7 +25867,8 @@
           "dominant_disaster": "flood",
           "message_vi": "Mưa nhỏ 0.3mm. Theo dõi."
         }
-      ]
+      ],
+      "ma": "03151"
     }
   },
   "alerts": [

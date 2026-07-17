@@ -37,10 +37,22 @@ warnings.filterwarnings('ignore')
 # Aspect: dominant direction (hướng dốc) - ảnh hưởng rainfall
 # Soil_type: loại đất chính (affects landslide susceptibility)
 # Elevation: meters (đã có)
+# Tọa độ từ Bộ NN&MT - Bản đồ nền Việt Nam (cosodulieu.bando.com.vn)
+# Xã/phường chính thức sau sáp nhập 2025 (Nghị quyết 1661/NQ-UBTVQH15)
+# - dien_bien_phu  -> Phường Điện Biên Phủ (ma 03127, gồm Him Lam+Tân Thanh+Mường Thanh+Thanh Bình+Thanh Trường+Nam Thanh+Noong Bua+Thanh Xương)
+# - muong_lay      -> Phường Mường Lay (ma 03151, gồm Sông Đà+Na Lay+phường cũ)
+# - muong_nhe      -> Xã Mường Nhé (ma 03160, gồm Nậm Vì+Chung Chải+Mường Nhé)
+# - muong_cha      -> Xã Mường Chà (ma 03166, gồm Chà Cang+Chà Nưa+Nậm Tin+Pa Tần)
+# - tua_chua       -> Xã Tủa Chùa (ma 03217, gồm TT Tủa Chùa+Mường Báng+Nà Tòng)
+# - tuan_giao      -> Xã Tuần Giáo (ma 03253, gồm TT Tuần Giáo+Quài Cang+Quài Nưa)
+# - muong_ang      -> Xã Mường Ảng (ma 03256, gồm TT Mường Ảng+Ẳng Nưa+Ẳng Cang)
+# - dien_bien_dong -> Xã Na Son (ma 03203, gồm TT Điện Biên Đông+Keo Lôm+Na Son)
+# - nam_po         -> Xã Si Pa Phìn (ma 03199, gồm Phìn Hồ+Si Pa Phìn - trung tâm huyện Nậm Pồ cũ)
 DISTRICTS_TERRAIN = {
     'dien_bien_phu': {
-        'name': 'TP Điện Biên Phủ',
-        'lat': 21.3869, 'lon': 103.0228,
+        'name': 'Phường Điện Biên Phủ',
+        'ma': '03127',
+        'lat': 21.4140962, 'lon': 103.0576943,
         'elev': 483, 'terrain': 0.3,
         'slope': 8,           # degrees - thung lũng Mường Thanh
         'aspect': 180,        # south-facing
@@ -50,52 +62,57 @@ DISTRICTS_TERRAIN = {
         'landslide_history_count': 0
     },
     'tuan_giao': {
-        'name': 'Huyện Tuần Giáo',
-        'lat': 21.6167, 'lon': 103.25,
+        'name': 'Xã Tuần Giáo',
+        'ma': '03253',
+        'lat': 21.6307492, 'lon': 103.4439122,
         'elev': 1047, 'terrain': 0.7,
         'slope': 25,
         'aspect': 90,
         'soil_type': 'clay_loam',
-        'river_proximity': 1,  # sông Đà
+        'river_proximity': 1,
         'flood_history_count': 2,
         'landslide_history_count': 1
     },
     'tua_chua': {
-        'name': 'Huyện Tủa Chùa',
-        'lat': 21.4667, 'lon': 103.4333,
+        'name': 'Xã Tủa Chùa',
+        'ma': '03217',
+        'lat': 21.8221187, 'lon': 103.3617164,
         'elev': 1565, 'terrain': 0.9,
         'slope': 35,
         'aspect': 45,
         'soil_type': 'rocky_soil',
         'river_proximity': 0,
         'flood_history_count': 1,
-        'landslide_history_count': 3  # high mountain
+        'landslide_history_count': 3
     },
     'muong_cha': {
-        'name': 'Huyện Mường Chà',
-        'lat': 22.0833, 'lon': 102.4333,
+        'name': 'Xã Mường Chà',
+        'ma': '03166',
+        'lat': 21.9786223, 'lon': 102.7777717,
         'elev': 500, 'terrain': 0.6,
         'slope': 20,
         'aspect': 270,
         'soil_type': 'clay',
-        'river_proximity': 1,  # sông Nậm Mức
+        'river_proximity': 1,
         'flood_history_count': 3,
         'landslide_history_count': 2
     },
     'muong_nhe': {
-        'name': 'Huyện Mường Nhé',
-        'lat': 22.4167, 'lon': 102.3,
+        'name': 'Xã Mường Nhé',
+        'ma': '03160',
+        'lat': 22.2169654, 'lon': 102.4203498,
         'elev': 600, 'terrain': 0.8,
         'slope': 30,
         'aspect': 135,
         'soil_type': 'rocky_soil',
-        'river_proximity': 1,  # biên giới
+        'river_proximity': 1,
         'flood_history_count': 2,
-        'landslide_history_count': 4  # nhiều sạt lở
+        'landslide_history_count': 4
     },
     'dien_bien_dong': {
-        'name': 'Huyện Điện Biên Đông',
-        'lat': 21.1833, 'lon': 103.55,
+        'name': 'Xã Na Son',
+        'ma': '03203',
+        'lat': 21.2972456, 'lon': 103.2143726,
         'elev': 800, 'terrain': 0.75,
         'slope': 28,
         'aspect': 200,
@@ -105,8 +122,9 @@ DISTRICTS_TERRAIN = {
         'landslide_history_count': 2
     },
     'nam_po': {
-        'name': 'Huyện Nậm Pồ',
-        'lat': 21.65, 'lon': 103.1167,
+        'name': 'Xã Si Pa Phìn',
+        'ma': '03199',
+        'lat': 21.8098376, 'lon': 102.9201731,
         'elev': 700, 'terrain': 0.85,
         'slope': 32,
         'aspect': 60,
@@ -116,19 +134,21 @@ DISTRICTS_TERRAIN = {
         'landslide_history_count': 3
     },
     'muong_ang': {
-        'name': 'Huyện Mường Ảng',
-        'lat': 21.8167, 'lon': 103.0833,
+        'name': 'Xã Mường Ảng',
+        'ma': '03256',
+        'lat': 21.4888505, 'lon': 103.2218525,
         'elev': 650, 'terrain': 0.65,
         'slope': 22,
         'aspect': 150,
         'soil_type': 'clay_loam',
-        'river_proximity': 1,  # sông Nậm Mức
+        'river_proximity': 1,
         'flood_history_count': 2,
         'landslide_history_count': 1
     },
     'muong_lay': {
-        'name': 'Thị xã Mường Lay',
-        'lat': 22.5, 'lon': 102.6833,
+        'name': 'Phường Mường Lay',
+        'ma': '03151',
+        'lat': 22.0160376, 'lon': 103.1782851,
         'elev': 450, 'terrain': 0.5,
         'slope': 18,
         'aspect': 225,

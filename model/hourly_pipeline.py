@@ -27,16 +27,19 @@ warnings.filterwarnings('ignore')
 # Districts (Điện Biên) + Neighbors
 # ============================================================
 
+# Tọa độ từ Bộ NN&MT - Bản đồ nền Việt Nam (cosodulieu.bando.com.vn)
+# Tra cứu theo tên xã/phường chính thức sau sáp nhập 2025 (Nghị quyết 1661/NQ-UBTVQH15)
+# Mỗi key ánh xạ đến xã/phường mới tương ứng (giữ key cũ để không phải sửa pipeline)
 DISTRICTS = {
-    'dien_bien_phu':    {'name': 'TP Điện Biên Phủ',    'lat': 21.3869, 'lon': 103.0228, 'elev': 483,  'terrain': 0.3},
-    'tuan_giao':        {'name': 'Huyện Tuần Giáo',      'lat': 21.6167, 'lon': 103.25,   'elev': 1047, 'terrain': 0.7},
-    'tua_chua':         {'name': 'Huyện Tủa Chùa',       'lat': 21.4667, 'lon': 103.4333, 'elev': 1565, 'terrain': 0.9},
-    'muong_cha':        {'name': 'Huyện Mường Chà',      'lat': 22.0833, 'lon': 102.4333, 'elev': 500,  'terrain': 0.6},
-    'muong_nhe':        {'name': 'Huyện Mường Nhé',      'lat': 22.4167, 'lon': 102.3,    'elev': 600,  'terrain': 0.8},
-    'dien_bien_dong':   {'name': 'Huyện Điện Biên Đông', 'lat': 21.1833, 'lon': 103.55,   'elev': 800,  'terrain': 0.75},
-    'nam_po':           {'name': 'Huyện Nậm Pồ',         'lat': 21.65,   'lon': 103.1167, 'elev': 700,  'terrain': 0.85},
-    'muong_ang':        {'name': 'Huyện Mường Ảng',      'lat': 21.8167, 'lon': 103.0833, 'elev': 650,  'terrain': 0.65},
-    'muong_lay':        {'name': 'Thị xã Mường Lay',     'lat': 22.5,    'lon': 102.6833, 'elev': 450,  'terrain': 0.5}
+    'dien_bien_phu':  {'name': 'Phường Điện Biên Phủ', 'ma': '03127', 'lat': 21.4140962, 'lon': 103.0576943, 'elev': 483,  'terrain': 0.3},
+    'muong_lay':      {'name': 'Phường Mường Lay',     'ma': '03151', 'lat': 22.0160376, 'lon': 103.1782851, 'elev': 450,  'terrain': 0.5},
+    'muong_nhe':      {'name': 'Xã Mường Nhé',         'ma': '03160', 'lat': 22.2169654, 'lon': 102.4203498, 'elev': 600,  'terrain': 0.8},
+    'muong_cha':      {'name': 'Xã Mường Chà',         'ma': '03166', 'lat': 21.9786223, 'lon': 102.7777717, 'elev': 500,  'terrain': 0.6},
+    'tua_chua':       {'name': 'Xã Tủa Chùa',          'ma': '03217', 'lat': 21.8221187, 'lon': 103.3617164, 'elev': 1565, 'terrain': 0.9},
+    'tuan_giao':      {'name': 'Xã Tuần Giáo',         'ma': '03253', 'lat': 21.6307492, 'lon': 103.4439122, 'elev': 1047, 'terrain': 0.7},
+    'muong_ang':      {'name': 'Xã Mường Ảng',         'ma': '03256', 'lat': 21.4888505, 'lon': 103.2218525, 'elev': 650,  'terrain': 0.65},
+    'dien_bien_dong': {'name': 'Xã Na Son',            'ma': '03203', 'lat': 21.2972456, 'lon': 103.2143726, 'elev': 800,  'terrain': 0.75},
+    'nam_po':         {'name': 'Xã Si Pa Phìn',        'ma': '03199', 'lat': 21.8098376, 'lon': 102.9201731, 'elev': 700,  'terrain': 0.85}
 }
 
 # Neighboring cells - 4 corners quanh mỗi district (~25km offset)
