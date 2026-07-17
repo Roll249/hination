@@ -1,7 +1,8 @@
-import amqp, { Connection, Channel } from 'amqplib';
+import amqp from 'amqplib';
+import type { Channel } from 'amqplib';
 import { logger } from './logger.js';
 
-let connection: Connection | null = null;
+let connection: Awaited<ReturnType<typeof amqp.connect>> | null = null;
 let channel: Channel | null = null;
 
 const QUEUE_NAME = 'scoring_jobs';
@@ -39,7 +40,7 @@ export async function initializeRabbitMQ(): Promise<void> {
   // Prefetch for worker scaling
   await channel.prefetch(1);
   
-  connection.on('error', (err) => {
+  connection.on('error', (err: Error) => {
     logger.error('RabbitMQ connection error:', err);
   });
   

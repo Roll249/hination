@@ -1,7 +1,8 @@
-import amqp, { Connection, Channel, ConsumeMessage } from 'amqplib';
-import { logger } from './config/logger.js';
+import amqp from 'amqplib';
+import type { Channel, ConsumeMessage } from 'amqplib';
+import { logger } from './logger.js';
 
-let connection: Connection | null = null;
+let connection: Awaited<ReturnType<typeof amqp.connect>> | null = null;
 let channel: Channel | null = null;
 
 const QUEUE_NAME = 'scoring_jobs';
@@ -45,13 +46,13 @@ export async function initializeRabbitMQ(): Promise<void> {
   // Prefetch 1 job at a time
   await channel.prefetch(1);
   
-  connection.on('error', (err) => {
+  connection.on('error', (err: Error) => {
     logger.error('RabbitMQ connection error:', err);
   });
   
   connection.on('close', () => {
     logger.warn('RabbitMQ connection closed, reconnecting...');
-    setTimeout(initializeRabbitMQ, 5000);
+    setTimeout(() => { initializeRabbitMQ(); }, 5000);
   });
   
   logger.info('Worker connected to RabbitMQ');
@@ -64,7 +65,9 @@ export async function consumeJobs(
     throw new Error('RabbitMQ channel not initialized');
   }
   
-  await channel.consume(QUEUE_NAME, async (msg: ConsumeMessage | null) => {
+  const ch = channel;
+  
+  await ch.consume(QUEUE_NAME, async (msg: ConsumeMessage | null) => {
     if (!msg) return;
     
     const job: ScoringJobMessage = JSON.parse(msg.content.toString());
@@ -72,7 +75,7 @@ export async function consumeJobs(
     
     try {
       await handler(job);
-      channel!.ack(msg);
+      ch.ack(msg);
     } catch (error) {
       logger.error(`Job ${job.jobId} failed:`, error);
       
@@ -85,10 +88,10 @@ export async function consumeJobs(
           retryCount: retryCount + 1
         };
         
-        channel!.ack(msg);
+        ch.ack(msg);
         
         // Republish to queue
-        channel!.publish(
+        ch.publish(
           EXCHANGE_NAME,
           QUEUE_NAME,
           Buffer.from(JSON.stringify(retryJob)),
@@ -97,7 +100,7 @@ export async function consumeJobs(
       } else {
         // Max retries exceeded, send to DLQ
         logger.error(`Job ${job.jobId} exceeded max retries, sending to DLQ`);
-        channel!.nack(msg, false, false);
+        ch.nack(msg, false, false);
       }
     }
   });

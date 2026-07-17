@@ -211,7 +211,7 @@ adminRouter.get('/audit-logs', async (req: AuthenticatedRequest, res: Response) 
 });
 
 // System stats
-adminRouter.get('/stats', async (req: AuthenticatedRequest, res: Response) => {
+adminRouter.get('/stats', async (_req: AuthenticatedRequest, res: Response) => {
   try {
     const [userCount, sessionCount, jobCount, recentJobs] = await Promise.all([
       query('SELECT COUNT(*) FROM users'),

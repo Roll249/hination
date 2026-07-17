@@ -1,4 +1,4 @@
-import pg from 'pg';
+import pg, { QueryResult, QueryResultRow } from 'pg';
 
 const { Pool } = pg;
 
@@ -13,10 +13,10 @@ export const pool = new Pool({
   connectionTimeoutMillis: 5000,
 });
 
-export async function query<T = unknown>(
+export async function query<T extends QueryResultRow = QueryResultRow>(
   text: string, 
   params?: unknown[]
-): Promise<pg.QueryResult<T>> {
+): Promise<QueryResult<T>> {
   return pool.query<T>(text, params);
 }
 

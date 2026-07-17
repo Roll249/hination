@@ -1,0 +1,990 @@
+{
+  "province": "Điện Biên",
+  "province_code": "DienBien",
+  "fetched_at": "2026-07-17T14:02:04.813056",
+  "data_source": "Open-Meteo API",
+  "api_url": "https://api.open-meteo.com/v1/forecast",
+  "districts": {
+    "dien_bien_phu": {
+      "name": "Thành phố Điện Biên Phủ",
+      "coordinates": {
+        "lat": 21.3869,
+        "lon": 103.0228
+      },
+      "elevation_m": 483.0,
+      "current": {
+        "time": "2026-07-17T14:00",
+        "temperature_c": 26.7,
+        "feels_like_c": 31.6,
+        "humidity_percent": 87,
+        "precipitation_mm": 0.2,
+        "weather_code": 53,
+        "weather_description": "Mưa phùn vừa",
+        "cloud_cover_percent": 88,
+        "wind_speed_kmh": 10.5,
+        "wind_direction_deg": 215,
+        "pressure_hpa": 1005.0
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 27.6,
+          "temp_min": 23.5,
+          "precipitation_sum": 23.5,
+          "precipitation_probability": 100,
+          "wind_speed_max": 12.0,
+          "sunrise": "2026-07-17T05:35",
+          "sunset": "2026-07-17T18:52"
+        },
+        {
+          "date": "2026-07-18",
+          "weather_code": 96,
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 28.1,
+          "temp_min": 23.4,
+          "precipitation_sum": 29.6,
+          "precipitation_probability": 97,
+          "wind_speed_max": 8.2,
+          "sunrise": "2026-07-18T05:35",
+          "sunset": "2026-07-18T18:52"
+        },
+        {
+          "date": "2026-07-19",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 27.0,
+          "temp_min": 23.9,
+          "precipitation_sum": 16.7,
+          "precipitation_probability": 100,
+          "wind_speed_max": 9.5,
+          "sunrise": "2026-07-19T05:36",
+          "sunset": "2026-07-19T18:52"
+        },
+        {
+          "date": "2026-07-20",
+          "weather_code": 55,
+          "weather_description": "Mưa phùn nặng",
+          "temp_max": 24.7,
+          "temp_min": 23.2,
+          "precipitation_sum": 13.5,
+          "precipitation_probability": 98,
+          "wind_speed_max": 9.2,
+          "sunrise": "2026-07-20T05:36",
+          "sunset": "2026-07-20T18:52"
+        },
+        {
+          "date": "2026-07-21",
+          "weather_code": 80,
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 28.1,
+          "temp_min": 23.0,
+          "precipitation_sum": 14.5,
+          "precipitation_probability": 93,
+          "wind_speed_max": 7.5,
+          "sunrise": "2026-07-21T05:36",
+          "sunset": "2026-07-21T18:51"
+        },
+        {
+          "date": "2026-07-22",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 28.8,
+          "temp_min": 22.7,
+          "precipitation_sum": 18.5,
+          "precipitation_probability": 93,
+          "wind_speed_max": 5.4,
+          "sunrise": "2026-07-22T05:37",
+          "sunset": "2026-07-22T18:51"
+        },
+        {
+          "date": "2026-07-23",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 26.4,
+          "temp_min": 22.8,
+          "precipitation_sum": 35.0,
+          "precipitation_probability": 92,
+          "wind_speed_max": 5.7,
+          "sunrise": "2026-07-23T05:37",
+          "sunset": "2026-07-23T18:51"
+        }
+      ],
+      "alerts": []
+    },
+    "tuan_giao": {
+      "name": "Huyện Tuần Giáo",
+      "coordinates": {
+        "lat": 21.6167,
+        "lon": 103.25
+      },
+      "elevation_m": 1047.0,
+      "current": {
+        "time": "2026-07-17T14:00",
+        "temperature_c": 23.2,
+        "feels_like_c": 26.1,
+        "humidity_percent": 88,
+        "precipitation_mm": 0.5,
+        "weather_code": 80,
+        "weather_description": "Mưa rào nhẹ",
+        "cloud_cover_percent": 100,
+        "wind_speed_kmh": 10.1,
+        "wind_direction_deg": 243,
+        "pressure_hpa": 1004.9
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_code": 81,
+          "weather_description": "Mưa rào vừa",
+          "temp_max": 25.4,
+          "temp_min": 20.5,
+          "precipitation_sum": 26.2,
+          "precipitation_probability": 100,
+          "wind_speed_max": 14.5,
+          "sunrise": "2026-07-17T05:33",
+          "sunset": "2026-07-17T18:52"
+        },
+        {
+          "date": "2026-07-18",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 26.1,
+          "temp_min": 20.5,
+          "precipitation_sum": 11.5,
+          "precipitation_probability": 84,
+          "wind_speed_max": 11.8,
+          "sunrise": "2026-07-18T05:34",
+          "sunset": "2026-07-18T18:52"
+        },
+        {
+          "date": "2026-07-19",
+          "weather_code": 80,
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 24.0,
+          "temp_min": 20.6,
+          "precipitation_sum": 11.0,
+          "precipitation_probability": 100,
+          "wind_speed_max": 8.9,
+          "sunrise": "2026-07-19T05:34",
+          "sunset": "2026-07-19T18:51"
+        },
+        {
+          "date": "2026-07-20",
+          "weather_code": 80,
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 21.8,
+          "temp_min": 20.0,
+          "precipitation_sum": 15.7,
+          "precipitation_probability": 93,
+          "wind_speed_max": 7.3,
+          "sunrise": "2026-07-20T05:35",
+          "sunset": "2026-07-20T18:51"
+        },
+        {
+          "date": "2026-07-21",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 26.0,
+          "temp_min": 20.0,
+          "precipitation_sum": 11.9,
+          "precipitation_probability": 94,
+          "wind_speed_max": 3.6,
+          "sunrise": "2026-07-21T05:35",
+          "sunset": "2026-07-21T18:51"
+        },
+        {
+          "date": "2026-07-22",
+          "weather_code": 96,
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 24.5,
+          "temp_min": 19.6,
+          "precipitation_sum": 21.6,
+          "precipitation_probability": 88,
+          "wind_speed_max": 4.0,
+          "sunrise": "2026-07-22T05:35",
+          "sunset": "2026-07-22T18:50"
+        },
+        {
+          "date": "2026-07-23",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 23.6,
+          "temp_min": 19.0,
+          "precipitation_sum": 34.3,
+          "precipitation_probability": 95,
+          "wind_speed_max": 5.5,
+          "sunrise": "2026-07-23T05:36",
+          "sunset": "2026-07-23T18:50"
+        }
+      ],
+      "alerts": []
+    },
+    "tua_chua": {
+      "name": "Huyện Tủa Chùa",
+      "coordinates": {
+        "lat": 21.4667,
+        "lon": 103.4333
+      },
+      "elevation_m": 1565.0,
+      "current": {
+        "time": "2026-07-17T14:00",
+        "temperature_c": 20.6,
+        "feels_like_c": 22.0,
+        "humidity_percent": 91,
+        "precipitation_mm": 0.2,
+        "weather_code": 95,
+        "weather_description": "Giông",
+        "cloud_cover_percent": 100,
+        "wind_speed_kmh": 17.6,
+        "wind_direction_deg": 252,
+        "pressure_hpa": 1005.8
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 20.6,
+          "temp_min": 16.7,
+          "precipitation_sum": 33.9,
+          "precipitation_probability": 100,
+          "wind_speed_max": 17.6,
+          "sunrise": "2026-07-17T05:33",
+          "sunset": "2026-07-17T18:51"
+        },
+        {
+          "date": "2026-07-18",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 21.5,
+          "temp_min": 17.0,
+          "precipitation_sum": 12.9,
+          "precipitation_probability": 93,
+          "wind_speed_max": 15.3,
+          "sunrise": "2026-07-18T05:33",
+          "sunset": "2026-07-18T18:50"
+        },
+        {
+          "date": "2026-07-19",
+          "weather_code": 55,
+          "weather_description": "Mưa phùn nặng",
+          "temp_max": 20.5,
+          "temp_min": 17.3,
+          "precipitation_sum": 6.0,
+          "precipitation_probability": 98,
+          "wind_speed_max": 13.2,
+          "sunrise": "2026-07-19T05:33",
+          "sunset": "2026-07-19T18:50"
+        },
+        {
+          "date": "2026-07-20",
+          "weather_code": 80,
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 18.4,
+          "temp_min": 16.8,
+          "precipitation_sum": 13.7,
+          "precipitation_probability": 99,
+          "wind_speed_max": 9.7,
+          "sunrise": "2026-07-20T05:34",
+          "sunset": "2026-07-20T18:50"
+        },
+        {
+          "date": "2026-07-21",
+          "weather_code": 96,
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 20.2,
+          "temp_min": 16.8,
+          "precipitation_sum": 25.7,
+          "precipitation_probability": 98,
+          "wind_speed_max": 8.2,
+          "sunrise": "2026-07-21T05:34",
+          "sunset": "2026-07-21T18:50"
+        },
+        {
+          "date": "2026-07-22",
+          "weather_code": 80,
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 21.4,
+          "temp_min": 16.6,
+          "precipitation_sum": 13.1,
+          "precipitation_probability": 94,
+          "wind_speed_max": 7.2,
+          "sunrise": "2026-07-22T05:35",
+          "sunset": "2026-07-22T18:49"
+        },
+        {
+          "date": "2026-07-23",
+          "weather_code": 81,
+          "weather_description": "Mưa rào vừa",
+          "temp_max": 18.5,
+          "temp_min": 16.4,
+          "precipitation_sum": 18.7,
+          "precipitation_probability": 98,
+          "wind_speed_max": 5.1,
+          "sunrise": "2026-07-23T05:35",
+          "sunset": "2026-07-23T18:49"
+        }
+      ],
+      "alerts": []
+    },
+    "muong_ang": {
+      "name": "Huyện Mường Ảng",
+      "coordinates": {
+        "lat": 21.8167,
+        "lon": 103.0833
+      },
+      "elevation_m": 889.0,
+      "current": {
+        "time": "2026-07-17T14:00",
+        "temperature_c": 23.4,
+        "feels_like_c": 27.3,
+        "humidity_percent": 92,
+        "precipitation_mm": 1.6,
+        "weather_code": 95,
+        "weather_description": "Giông",
+        "cloud_cover_percent": 93,
+        "wind_speed_kmh": 8.0,
+        "wind_direction_deg": 216,
+        "pressure_hpa": 1005.3
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 24.2,
+          "temp_min": 20.8,
+          "precipitation_sum": 49.1,
+          "precipitation_probability": 100,
+          "wind_speed_max": 10.7,
+          "sunrise": "2026-07-17T05:34",
+          "sunset": "2026-07-17T18:53"
+        },
+        {
+          "date": "2026-07-18",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 25.9,
+          "temp_min": 20.9,
+          "precipitation_sum": 27.4,
+          "precipitation_probability": 98,
+          "wind_speed_max": 10.3,
+          "sunrise": "2026-07-18T05:34",
+          "sunset": "2026-07-18T18:53"
+        },
+        {
+          "date": "2026-07-19",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 23.1,
+          "temp_min": 21.0,
+          "precipitation_sum": 25.0,
+          "precipitation_probability": 100,
+          "wind_speed_max": 5.6,
+          "sunrise": "2026-07-19T05:34",
+          "sunset": "2026-07-19T18:52"
+        },
+        {
+          "date": "2026-07-20",
+          "weather_code": 81,
+          "weather_description": "Mưa rào vừa",
+          "temp_max": 23.9,
+          "temp_min": 20.7,
+          "precipitation_sum": 12.1,
+          "precipitation_probability": 100,
+          "wind_speed_max": 8.1,
+          "sunrise": "2026-07-20T05:35",
+          "sunset": "2026-07-20T18:52"
+        },
+        {
+          "date": "2026-07-21",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 26.4,
+          "temp_min": 20.7,
+          "precipitation_sum": 10.7,
+          "precipitation_probability": 93,
+          "wind_speed_max": 5.3,
+          "sunrise": "2026-07-21T05:35",
+          "sunset": "2026-07-21T18:52"
+        },
+        {
+          "date": "2026-07-22",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 24.1,
+          "temp_min": 19.8,
+          "precipitation_sum": 26.9,
+          "precipitation_probability": 99,
+          "wind_speed_max": 4.3,
+          "sunrise": "2026-07-22T05:36",
+          "sunset": "2026-07-22T18:51"
+        },
+        {
+          "date": "2026-07-23",
+          "weather_code": 81,
+          "weather_description": "Mưa rào vừa",
+          "temp_max": 24.4,
+          "temp_min": 20.0,
+          "precipitation_sum": 39.1,
+          "precipitation_probability": 95,
+          "wind_speed_max": 5.0,
+          "sunrise": "2026-07-23T05:36",
+          "sunset": "2026-07-23T18:51"
+        }
+      ],
+      "alerts": []
+    },
+    "muong_cha": {
+      "name": "Huyện Mường Chà",
+      "coordinates": {
+        "lat": 22.0833,
+        "lon": 102.4333
+      },
+      "elevation_m": 1564.0,
+      "current": {
+        "time": "2026-07-17T14:00",
+        "temperature_c": 19.7,
+        "feels_like_c": 22.1,
+        "humidity_percent": 99,
+        "precipitation_mm": 0.8,
+        "weather_code": 96,
+        "weather_description": "Giông kèm mưa đá nhẹ",
+        "cloud_cover_percent": 98,
+        "wind_speed_kmh": 8.7,
+        "wind_direction_deg": 223,
+        "pressure_hpa": 1005.6
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_code": 96,
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 20.3,
+          "temp_min": 17.0,
+          "precipitation_sum": 43.8,
+          "precipitation_probability": 100,
+          "wind_speed_max": 8.9,
+          "sunrise": "2026-07-17T05:36",
+          "sunset": "2026-07-17T18:56"
+        },
+        {
+          "date": "2026-07-18",
+          "weather_code": 96,
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 20.5,
+          "temp_min": 17.2,
+          "precipitation_sum": 31.7,
+          "precipitation_probability": 99,
+          "wind_speed_max": 8.2,
+          "sunrise": "2026-07-18T05:36",
+          "sunset": "2026-07-18T18:56"
+        },
+        {
+          "date": "2026-07-19",
+          "weather_code": 55,
+          "weather_description": "Mưa phùn nặng",
+          "temp_max": 18.3,
+          "temp_min": 17.2,
+          "precipitation_sum": 12.8,
+          "precipitation_probability": 100,
+          "wind_speed_max": 7.0,
+          "sunrise": "2026-07-19T05:37",
+          "sunset": "2026-07-19T18:55"
+        },
+        {
+          "date": "2026-07-20",
+          "weather_code": 82,
+          "weather_description": "Mưa rào nặng",
+          "temp_max": 22.5,
+          "temp_min": 16.9,
+          "precipitation_sum": 41.5,
+          "precipitation_probability": 100,
+          "wind_speed_max": 7.4,
+          "sunrise": "2026-07-20T05:37",
+          "sunset": "2026-07-20T18:55"
+        },
+        {
+          "date": "2026-07-21",
+          "weather_code": 80,
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 24.6,
+          "temp_min": 16.8,
+          "precipitation_sum": 11.8,
+          "precipitation_probability": 100,
+          "wind_speed_max": 5.3,
+          "sunrise": "2026-07-21T05:38",
+          "sunset": "2026-07-21T18:55"
+        },
+        {
+          "date": "2026-07-22",
+          "weather_code": 80,
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 23.9,
+          "temp_min": 17.0,
+          "precipitation_sum": 8.4,
+          "precipitation_probability": 99,
+          "wind_speed_max": 4.4,
+          "sunrise": "2026-07-22T05:38",
+          "sunset": "2026-07-22T18:55"
+        },
+        {
+          "date": "2026-07-23",
+          "weather_code": 81,
+          "weather_description": "Mưa rào vừa",
+          "temp_max": 20.5,
+          "temp_min": 16.5,
+          "precipitation_sum": 36.3,
+          "precipitation_probability": 98,
+          "wind_speed_max": 5.2,
+          "sunrise": "2026-07-23T05:38",
+          "sunset": "2026-07-23T18:54"
+        }
+      ],
+      "alerts": [
+        {
+          "type": "high_humidity",
+          "severity": "info",
+          "value": 99,
+          "unit": "%",
+          "action": "Độ ẩm rất cao, cảnh giác sương mù",
+          "timestamp": "2026-07-17T14:02:11.490430"
+        }
+      ]
+    },
+    "muong_nhe": {
+      "name": "Huyện Mường Nhé",
+      "coordinates": {
+        "lat": 22.4167,
+        "lon": 102.3
+      },
+      "elevation_m": 923.0,
+      "current": {
+        "time": "2026-07-17T14:00",
+        "temperature_c": 25.2,
+        "feels_like_c": 32.0,
+        "humidity_percent": 94,
+        "precipitation_mm": 0.9,
+        "weather_code": 96,
+        "weather_description": "Giông kèm mưa đá nhẹ",
+        "cloud_cover_percent": 90,
+        "wind_speed_kmh": 2.4,
+        "wind_direction_deg": 189,
+        "pressure_hpa": 1004.0
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_code": 96,
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 25.2,
+          "temp_min": 20.4,
+          "precipitation_sum": 56.3,
+          "precipitation_probability": 100,
+          "wind_speed_max": 3.3,
+          "sunrise": "2026-07-17T05:36",
+          "sunset": "2026-07-17T18:57"
+        },
+        {
+          "date": "2026-07-18",
+          "weather_code": 96,
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 27.2,
+          "temp_min": 20.7,
+          "precipitation_sum": 32.1,
+          "precipitation_probability": 100,
+          "wind_speed_max": 5.2,
+          "sunrise": "2026-07-18T05:36",
+          "sunset": "2026-07-18T18:57"
+        },
+        {
+          "date": "2026-07-19",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 23.1,
+          "temp_min": 20.9,
+          "precipitation_sum": 23.6,
+          "precipitation_probability": 100,
+          "wind_speed_max": 4.2,
+          "sunrise": "2026-07-19T05:37",
+          "sunset": "2026-07-19T18:57"
+        },
+        {
+          "date": "2026-07-20",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 27.5,
+          "temp_min": 20.7,
+          "precipitation_sum": 38.9,
+          "precipitation_probability": 100,
+          "wind_speed_max": 7.2,
+          "sunrise": "2026-07-20T05:37",
+          "sunset": "2026-07-20T18:56"
+        },
+        {
+          "date": "2026-07-21",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 28.2,
+          "temp_min": 20.2,
+          "precipitation_sum": 15.9,
+          "precipitation_probability": 84,
+          "wind_speed_max": 9.8,
+          "sunrise": "2026-07-21T05:37",
+          "sunset": "2026-07-21T18:56"
+        },
+        {
+          "date": "2026-07-22",
+          "weather_code": 80,
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 28.1,
+          "temp_min": 20.1,
+          "precipitation_sum": 6.0,
+          "precipitation_probability": 90,
+          "wind_speed_max": 4.8,
+          "sunrise": "2026-07-22T05:38",
+          "sunset": "2026-07-22T18:56"
+        },
+        {
+          "date": "2026-07-23",
+          "weather_code": 81,
+          "weather_description": "Mưa rào vừa",
+          "temp_max": 23.4,
+          "temp_min": 20.2,
+          "precipitation_sum": 28.2,
+          "precipitation_probability": 95,
+          "wind_speed_max": 6.2,
+          "sunrise": "2026-07-23T05:38",
+          "sunset": "2026-07-23T18:55"
+        }
+      ],
+      "alerts": []
+    },
+    "dien_bien_dong": {
+      "name": "Huyện Điện Biên Đông",
+      "coordinates": {
+        "lat": 21.1833,
+        "lon": 103.55
+      },
+      "elevation_m": 415.0,
+      "current": {
+        "time": "2026-07-17T14:00",
+        "temperature_c": 27.8,
+        "feels_like_c": 32.7,
+        "humidity_percent": 84,
+        "precipitation_mm": 0.3,
+        "weather_code": 55,
+        "weather_description": "Mưa phùn nặng",
+        "cloud_cover_percent": 98,
+        "wind_speed_kmh": 11.7,
+        "wind_direction_deg": 266,
+        "pressure_hpa": 1004.5
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 28.7,
+          "temp_min": 24.1,
+          "precipitation_sum": 15.8,
+          "precipitation_probability": 100,
+          "wind_speed_max": 14.6,
+          "sunrise": "2026-07-17T05:33",
+          "sunset": "2026-07-17T18:50"
+        },
+        {
+          "date": "2026-07-18",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 29.2,
+          "temp_min": 24.0,
+          "precipitation_sum": 22.2,
+          "precipitation_probability": 81,
+          "wind_speed_max": 15.4,
+          "sunrise": "2026-07-18T05:33",
+          "sunset": "2026-07-18T18:50"
+        },
+        {
+          "date": "2026-07-19",
+          "weather_code": 55,
+          "weather_description": "Mưa phùn nặng",
+          "temp_max": 26.7,
+          "temp_min": 24.0,
+          "precipitation_sum": 11.2,
+          "precipitation_probability": 90,
+          "wind_speed_max": 9.7,
+          "sunrise": "2026-07-19T05:34",
+          "sunset": "2026-07-19T18:49"
+        },
+        {
+          "date": "2026-07-20",
+          "weather_code": 53,
+          "weather_description": "Mưa phùn vừa",
+          "temp_max": 26.1,
+          "temp_min": 23.5,
+          "precipitation_sum": 10.4,
+          "precipitation_probability": 100,
+          "wind_speed_max": 8.4,
+          "sunrise": "2026-07-20T05:34",
+          "sunset": "2026-07-20T18:49"
+        },
+        {
+          "date": "2026-07-21",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 27.4,
+          "temp_min": 23.8,
+          "precipitation_sum": 19.5,
+          "precipitation_probability": 93,
+          "wind_speed_max": 6.4,
+          "sunrise": "2026-07-21T05:35",
+          "sunset": "2026-07-21T18:49"
+        },
+        {
+          "date": "2026-07-22",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 28.0,
+          "temp_min": 23.6,
+          "precipitation_sum": 19.5,
+          "precipitation_probability": 87,
+          "wind_speed_max": 5.3,
+          "sunrise": "2026-07-22T05:35",
+          "sunset": "2026-07-22T18:49"
+        },
+        {
+          "date": "2026-07-23",
+          "weather_code": 53,
+          "weather_description": "Mưa phùn vừa",
+          "temp_max": 27.1,
+          "temp_min": 23.1,
+          "precipitation_sum": 10.5,
+          "precipitation_probability": 85,
+          "wind_speed_max": 4.4,
+          "sunrise": "2026-07-23T05:35",
+          "sunset": "2026-07-23T18:48"
+        }
+      ],
+      "alerts": []
+    },
+    "nam_po": {
+      "name": "Huyện Nậm Pồ",
+      "coordinates": {
+        "lat": 21.65,
+        "lon": 103.1167
+      },
+      "elevation_m": 676.0,
+      "current": {
+        "time": "2026-07-17T14:00",
+        "temperature_c": 25.1,
+        "feels_like_c": 30.4,
+        "humidity_percent": 96,
+        "precipitation_mm": 1.6,
+        "weather_code": 96,
+        "weather_description": "Giông kèm mưa đá nhẹ",
+        "cloud_cover_percent": 100,
+        "wind_speed_kmh": 7.9,
+        "wind_direction_deg": 231,
+        "pressure_hpa": 1005.6
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_code": 96,
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 26.0,
+          "temp_min": 22.3,
+          "precipitation_sum": 36.8,
+          "precipitation_probability": 100,
+          "wind_speed_max": 11.5,
+          "sunrise": "2026-07-17T05:34",
+          "sunset": "2026-07-17T18:53"
+        },
+        {
+          "date": "2026-07-18",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 27.5,
+          "temp_min": 22.5,
+          "precipitation_sum": 19.0,
+          "precipitation_probability": 98,
+          "wind_speed_max": 11.3,
+          "sunrise": "2026-07-18T05:34",
+          "sunset": "2026-07-18T18:52"
+        },
+        {
+          "date": "2026-07-19",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 25.5,
+          "temp_min": 22.6,
+          "precipitation_sum": 16.1,
+          "precipitation_probability": 100,
+          "wind_speed_max": 7.5,
+          "sunrise": "2026-07-19T05:35",
+          "sunset": "2026-07-19T18:52"
+        },
+        {
+          "date": "2026-07-20",
+          "weather_code": 80,
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 24.2,
+          "temp_min": 22.3,
+          "precipitation_sum": 12.4,
+          "precipitation_probability": 100,
+          "wind_speed_max": 7.2,
+          "sunrise": "2026-07-20T05:35",
+          "sunset": "2026-07-20T18:52"
+        },
+        {
+          "date": "2026-07-21",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 27.4,
+          "temp_min": 22.1,
+          "precipitation_sum": 8.7,
+          "precipitation_probability": 93,
+          "wind_speed_max": 5.7,
+          "sunrise": "2026-07-21T05:36",
+          "sunset": "2026-07-21T18:52"
+        },
+        {
+          "date": "2026-07-22",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 26.0,
+          "temp_min": 21.5,
+          "precipitation_sum": 17.9,
+          "precipitation_probability": 99,
+          "wind_speed_max": 4.8,
+          "sunrise": "2026-07-22T05:36",
+          "sunset": "2026-07-22T18:51"
+        },
+        {
+          "date": "2026-07-23",
+          "weather_code": 82,
+          "weather_description": "Mưa rào nặng",
+          "temp_max": 25.7,
+          "temp_min": 21.6,
+          "precipitation_sum": 44.1,
+          "precipitation_probability": 95,
+          "wind_speed_max": 4.9,
+          "sunrise": "2026-07-23T05:36",
+          "sunset": "2026-07-23T18:51"
+        }
+      ],
+      "alerts": []
+    },
+    "muong_lay": {
+      "name": "Thị xã Mường Lay",
+      "coordinates": {
+        "lat": 22.5,
+        "lon": 102.6833
+      },
+      "elevation_m": 1240.0,
+      "current": {
+        "time": "2026-07-17T14:00",
+        "temperature_c": 22.8,
+        "feels_like_c": 27.1,
+        "humidity_percent": 94,
+        "precipitation_mm": 0.6,
+        "weather_code": 95,
+        "weather_description": "Giông",
+        "cloud_cover_percent": 89,
+        "wind_speed_kmh": 3.4,
+        "wind_direction_deg": 238,
+        "pressure_hpa": 1005.3
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 24.6,
+          "temp_min": 19.5,
+          "precipitation_sum": 49.8,
+          "precipitation_probability": 100,
+          "wind_speed_max": 6.5,
+          "sunrise": "2026-07-17T05:34",
+          "sunset": "2026-07-17T18:56"
+        },
+        {
+          "date": "2026-07-18",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 24.6,
+          "temp_min": 19.8,
+          "precipitation_sum": 41.5,
+          "precipitation_probability": 100,
+          "wind_speed_max": 5.9,
+          "sunrise": "2026-07-18T05:34",
+          "sunset": "2026-07-18T18:56"
+        },
+        {
+          "date": "2026-07-19",
+          "weather_code": 81,
+          "weather_description": "Mưa rào vừa",
+          "temp_max": 21.6,
+          "temp_min": 20.1,
+          "precipitation_sum": 43.6,
+          "precipitation_probability": 100,
+          "wind_speed_max": 3.7,
+          "sunrise": "2026-07-19T05:35",
+          "sunset": "2026-07-19T18:55"
+        },
+        {
+          "date": "2026-07-20",
+          "weather_code": 96,
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 23.8,
+          "temp_min": 20.1,
+          "precipitation_sum": 22.9,
+          "precipitation_probability": 100,
+          "wind_speed_max": 4.3,
+          "sunrise": "2026-07-20T05:35",
+          "sunset": "2026-07-20T18:55"
+        },
+        {
+          "date": "2026-07-21",
+          "weather_code": 53,
+          "weather_description": "Mưa phùn vừa",
+          "temp_max": 24.7,
+          "temp_min": 19.5,
+          "precipitation_sum": 9.0,
+          "precipitation_probability": 99,
+          "wind_speed_max": 5.2,
+          "sunrise": "2026-07-21T05:36",
+          "sunset": "2026-07-21T18:55"
+        },
+        {
+          "date": "2026-07-22",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 23.1,
+          "temp_min": 19.5,
+          "precipitation_sum": 18.5,
+          "precipitation_probability": 97,
+          "wind_speed_max": 4.8,
+          "sunrise": "2026-07-22T05:36",
+          "sunset": "2026-07-22T18:54"
+        },
+        {
+          "date": "2026-07-23",
+          "weather_code": 95,
+          "weather_description": "Giông",
+          "temp_max": 21.8,
+          "temp_min": 18.9,
+          "precipitation_sum": 66.0,
+          "precipitation_probability": 96,
+          "wind_speed_max": 5.1,
+          "sunrise": "2026-07-23T05:36",
+          "sunset": "2026-07-23T18:54"
+        }
+      ],
+      "alerts": []
+    }
+  }
+}

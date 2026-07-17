@@ -1,4 +1,4 @@
-import pg from 'pg';
+import pg, { QueryResult, QueryResultRow } from 'pg';
 import { logger } from './logger.js';
 
 const { Pool } = pg;
@@ -28,10 +28,10 @@ export async function initializeDatabase(): Promise<void> {
   }
 }
 
-export async function query<T = unknown>(
+export async function query<T extends QueryResultRow = QueryResultRow>(
   text: string, 
   params?: unknown[]
-): Promise<pg.QueryResult<T>> {
+): Promise<QueryResult<T>> {
   const start = Date.now();
   const result = await pool.query<T>(text, params);
   const duration = Date.now() - start;

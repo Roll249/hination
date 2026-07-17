@@ -3,13 +3,10 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 import { query } from '../config/database.js';
-import { redis } from '../config/redis.js';
 import { logger } from '../config/logger.js';
 import { authMiddleware, AuthenticatedRequest } from '../middleware/auth.js';
 
 export const authRouter = Router();
-
-const SALT_ROUNDS = 12;
 
 // Login
 authRouter.post('/login', async (req: Request, res: Response) => {
@@ -51,8 +48,6 @@ authRouter.post('/login', async (req: Request, res: Response) => {
     const jti = uuidv4();
     const accessSecret = process.env.JWT_ACCESS_SECRET!;
     const refreshSecret = process.env.JWT_REFRESH_SECRET!;
-    const accessExpiry = process.env.JWT_ACCESS_EXPIRY || '15m';
-    const refreshExpiry = process.env.JWT_REFRESH_EXPIRY || '7d';
     
     const accessToken = jwt.sign(
       {
@@ -62,7 +57,7 @@ authRouter.post('/login', async (req: Request, res: Response) => {
         role: user.role
       },
       accessSecret,
-      { expiresIn: accessExpiry }
+      { expiresIn: '15m' }
     );
     
     const refreshToken = jwt.sign(
@@ -72,7 +67,7 @@ authRouter.post('/login', async (req: Request, res: Response) => {
         type: 'refresh'
       },
       refreshSecret,
-      { expiresIn: refreshExpiry }
+      { expiresIn: '7d' }
     );
     
     // Store refresh token hash in database
@@ -166,7 +161,6 @@ authRouter.post('/refresh', async (req: Request, res: Response) => {
     // Generate new access token
     const newJti = uuidv4();
     const accessSecret = process.env.JWT_ACCESS_SECRET!;
-    const accessExpiry = process.env.JWT_ACCESS_EXPIRY || '15m';
     
     const accessToken = jwt.sign(
       {
@@ -176,7 +170,7 @@ authRouter.post('/refresh', async (req: Request, res: Response) => {
         role: validSession.role
       },
       accessSecret,
-      { expiresIn: accessExpiry }
+      { expiresIn: '15m' }
     );
     
     res.json({

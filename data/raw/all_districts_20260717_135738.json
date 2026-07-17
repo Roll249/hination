@@ -1,0 +1,86 @@
+{
+  "province": "Dien Bien",
+  "fetched_at": "2026-07-17T13:57:26.323350",
+  "districts": {
+    "dien_bien_phu": {
+      "lat": 21.3869,
+      "lon": 103.0228,
+      "district": "Điện Biên Phủ",
+      "weather": {
+        "error": "name 'hourly' is not defined"
+      }
+    },
+    "dien_bien": {
+      "lat": 21.2833,
+      "lon": 103.3667,
+      "district": "Điện Biên",
+      "weather": {
+        "error": "name 'hourly' is not defined"
+      }
+    },
+    "tua_chua": {
+      "lat": 21.4667,
+      "lon": 103.4333,
+      "district": "Tủa Chùa",
+      "weather": {
+        "error": "name 'hourly' is not defined"
+      }
+    },
+    "tuan_giao": {
+      "lat": 21.6167,
+      "lon": 103.25,
+      "district": "Tuần Giáo",
+      "weather": {
+        "error": "name 'hourly' is not defined"
+      }
+    },
+    "muong_ang": {
+      "lat": 21.8167,
+      "lon": 103.0833,
+      "district": "Mường Ảng",
+      "weather": {
+        "error": "name 'hourly' is not defined"
+      }
+    },
+    "muong_cha": {
+      "lat": 22.0833,
+      "lon": 102.4333,
+      "district": "Mường Chà",
+      "weather": {
+        "error": "name 'hourly' is not defined"
+      }
+    },
+    "muong_nhe": {
+      "lat": 22.4167,
+      "lon": 102.3,
+      "district": "Mường Nhé",
+      "weather": {
+        "error": "name 'hourly' is not defined"
+      }
+    },
+    "dien_bien_dong": {
+      "lat": 21.1833,
+      "lon": 103.55,
+      "district": "Điện Biên Đông",
+      "weather": {
+        "error": "name 'hourly' is not defined"
+      }
+    },
+    "nam_po": {
+      "lat": 21.65,
+      "lon": 103.1167,
+      "district": "Nậm Pồ",
+      "weather": {
+        "error": "name 'hourly' is not defined"
+      }
+    },
+    "muong_lay": {
+      "lat": 22.5,
+      "lon": 102.6833,
+      "district": "Thị xã Mường Lay",
+      "weather": {
+        "error": "name 'hourly' is not defined"
+      }
+    }
+  }
+}

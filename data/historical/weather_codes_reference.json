@@ -1,0 +1,162 @@
+{
+  "description": "WMO Weather Codes with Vietnamese translations for Điện Biên dashboard",
+  "source": "World Meteorological Organization",
+  "last_updated": "2026-07-17",
+  "codes": {
+    "0": {
+      "vietnamese": "Trời quang",
+      "english": "Clear sky",
+      "category": "clear"
+    },
+    "1": {
+      "vietnamese": "Ít mây",
+      "english": "Mainly clear",
+      "category": "clear"
+    },
+    "2": {
+      "vietnamese": "Nhiều mây",
+      "english": "Partly cloudy",
+      "category": "cloudy"
+    },
+    "3": {
+      "vietnamese": "U ám",
+      "english": "Overcast",
+      "category": "cloudy"
+    },
+    "45": {
+      "vietnamese": "Sương mù",
+      "english": "Fog",
+      "category": "fog"
+    },
+    "48": {
+      "vietnamese": "Sương mù đóng băng",
+      "english": "Depositing rime fog",
+      "category": "fog"
+    },
+    "51": {
+      "vietnamese": "Mưa phùn nhẹ",
+      "english": "Light drizzle",
+      "category": "drizzle"
+    },
+    "53": {
+      "vietnamese": "Mưa phùn vừa",
+      "english": "Moderate drizzle",
+      "category": "drizzle"
+    },
+    "55": {
+      "vietnamese": "Mưa phùn nặng",
+      "english": "Dense drizzle",
+      "category": "drizzle"
+    },
+    "56": {
+      "vietnamese": "Mưa phùn đóng băng nhẹ",
+      "english": "Light freezing drizzle",
+      "category": "freezing"
+    },
+    "57": {
+      "vietnamese": "Mưa phùn đóng băng nặng",
+      "english": "Dense freezing drizzle",
+      "category": "freezing"
+    },
+    "61": {
+      "vietnamese": "Mưa nhẹ",
+      "english": "Slight rain",
+      "category": "rain"
+    },
+    "63": {
+      "vietnamese": "Mưa vừa",
+      "english": "Moderate rain",
+      "category": "rain"
+    },
+    "65": {
+      "vietnamese": "Mưa to",
+      "english": "Heavy rain",
+      "category": "rain"
+    },
+    "66": {
+      "vietnamese": "Mưa đóng băng nhẹ",
+      "english": "Light freezing rain",
+      "category": "freezing"
+    },
+    "67": {
+      "vietnamese": "Mưa đóng băng nặng",
+      "english": "Heavy freezing rain",
+      "category": "freezing"
+    },
+    "71": {
+      "vietnamese": "Tuyết nhẹ",
+      "english": "Slight snow fall",
+      "category": "snow"
+    },
+    "73": {
+      "vietnamese": "Tuyết vừa",
+      "english": "Moderate snow fall",
+      "category": "snow"
+    },
+    "75": {
+      "vietnamese": "Tuyết to",
+      "english": "Heavy snow fall",
+      "category": "snow"
+    },
+    "77": {
+      "vietnamese": "Hạt tuyết",
+      "english": "Snow grains",
+      "category": "snow"
+    },
+    "80": {
+      "vietnamese": "Mưa rào nhẹ",
+      "english": "Slight rain showers",
+      "category": "showers"
+    },
+    "81": {
+      "vietnamese": "Mưa rào vừa",
+      "english": "Moderate rain showers",
+      "category": "showers"
+    },
+    "82": {
+      "vietnamese": "Mưa rào nặng",
+      "english": "Violent rain showers",
+      "category": "showers"
+    },
+    "85": {
+      "vietnamese": "Mưa tuyết nhẹ",
+      "english": "Slight snow showers",
+      "category": "snow"
+    },
+    "86": {
+      "vietnamese": "Mưa tuyết nặng",
+      "english": "Heavy snow showers",
+      "category": "snow"
+    },
+    "95": {
+      "vietnamese": "Giông",
+      "english": "Thunderstorm",
+      "category": "thunderstorm"
+    },
+    "96": {
+      "vietnamese": "Giông kèm mưa đá nhẹ",
+      "english": "Thunderstorm with slight hail",
+      "category": "thunderstorm"
+    },
+    "99": {
+      "vietnamese": "Giông kèm mưa đá nặng",
+      "english": "Thunderstorm with heavy hail",
+      "category": "thunderstorm"
+    }
+  },
+  "hazard_mapping": {
+    "heavy_rain": [63, 65, 81, 82],
+    "flood_risk": [61, 63, 65, 80, 81, 82],
+    "landslide_risk": [63, 65, 81, 82, 95, 96],
+    "thunderstorm": [95, 96, 99],
+    "fog": [45, 48],
+    "snow": [71, 73, 75, 85, 86]
+  },
+  "Điện Biên_notes": {
+    "location": "Northwest Vietnam, mountainous terrain",
+    "typical_weather": "Monsoon climate with wet season May-October",
+    "common_codes": "80, 81, 82, 95, 96 (thunderstorms and rain showers during monsoon)",
+    "flood_season": "June-September",
+    "dry_season": "November-April"
+  }
+}

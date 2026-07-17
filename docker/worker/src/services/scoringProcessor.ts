@@ -1,9 +1,14 @@
 import { ScoringJobMessage } from '../config/rabbitmq.js';
 import { updateJobStatus, query } from '../config/database.js';
-import { AIService } from './aiService.js';
+import { AIService, AIGradingResponse } from './aiService.js';
 import { logger } from '../config/logger.js';
 
 const aiService = new AIService();
+
+interface JobRecord {
+  max_retries: number;
+  retry_count: number;
+}
 
 export async function processScoringJob(job: ScoringJobMessage): Promise<void> {
   const { jobId, studentId, answers, metadata } = job;
@@ -15,7 +20,7 @@ export async function processScoringJob(job: ScoringJobMessage): Promise<void> {
 
   try {
     // Get job from database to check max retries
-    const result = await query(
+    const result = await query<JobRecord>(
       'SELECT max_retries, retry_count FROM scoring_jobs WHERE id = $1',
       [jobId]
     );
@@ -57,7 +62,7 @@ export async function processScoringJob(job: ScoringJobMessage): Promise<void> {
       jobId,
       'completed',
       resultData,
-      aiResponse
+      aiResponse as unknown as Record<string, unknown>
     );
 
     logger.info(`Job ${jobId} completed successfully`, {

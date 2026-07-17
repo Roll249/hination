@@ -1,0 +1,637 @@
+{
+  "province": "Điện Biên",
+  "fetched_at": "2026-07-17T14:15:48.628598",
+  "data_source": "Open-Meteo API",
+  "districts": {
+    "dien_bien_phu": {
+      "name": "Thành phố Điện Biên Phủ",
+      "coordinates": {
+        "lat": 21.3869,
+        "lon": 103.0228
+      },
+      "elevation_m": 483.0,
+      "current": {
+        "temperature_c": 26.9,
+        "humidity_percent": 86,
+        "precipitation_mm": 0.1,
+        "weather_code": 51,
+        "weather_description": "Mưa phùn nhẹ",
+        "wind_speed_kmh": 10.4,
+        "wind_direction_deg": 216
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_description": "Giông",
+          "temp_max": 27.6,
+          "temp_min": 23.5,
+          "precipitation_sum": 23.5
+        },
+        {
+          "date": "2026-07-18",
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 28.1,
+          "temp_min": 23.4,
+          "precipitation_sum": 29.6
+        },
+        {
+          "date": "2026-07-19",
+          "weather_description": "Giông",
+          "temp_max": 27.0,
+          "temp_min": 23.9,
+          "precipitation_sum": 16.7
+        },
+        {
+          "date": "2026-07-20",
+          "weather_description": "Mưa phùn nặng",
+          "temp_max": 24.7,
+          "temp_min": 23.2,
+          "precipitation_sum": 13.5
+        },
+        {
+          "date": "2026-07-21",
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 28.1,
+          "temp_min": 23.0,
+          "precipitation_sum": 14.5
+        },
+        {
+          "date": "2026-07-22",
+          "weather_description": "Giông",
+          "temp_max": 28.8,
+          "temp_min": 22.7,
+          "precipitation_sum": 18.5
+        },
+        {
+          "date": "2026-07-23",
+          "weather_description": "Giông",
+          "temp_max": 26.4,
+          "temp_min": 22.8,
+          "precipitation_sum": 35.0
+        }
+      ],
+      "alerts": []
+    },
+    "tuan_giao": {
+      "name": "Huyện Tuần Giáo",
+      "coordinates": {
+        "lat": 21.6167,
+        "lon": 103.25
+      },
+      "elevation_m": 1047.0,
+      "current": {
+        "temperature_c": 22.9,
+        "humidity_percent": 90,
+        "precipitation_mm": 0.5,
+        "weather_code": 80,
+        "weather_description": "Mưa rào nhẹ",
+        "wind_speed_kmh": 9.1,
+        "wind_direction_deg": 243
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_description": "Mưa rào vừa",
+          "temp_max": 25.4,
+          "temp_min": 20.5,
+          "precipitation_sum": 26.2
+        },
+        {
+          "date": "2026-07-18",
+          "weather_description": "Giông",
+          "temp_max": 26.1,
+          "temp_min": 20.5,
+          "precipitation_sum": 11.5
+        },
+        {
+          "date": "2026-07-19",
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 24.0,
+          "temp_min": 20.6,
+          "precipitation_sum": 11.0
+        },
+        {
+          "date": "2026-07-20",
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 21.8,
+          "temp_min": 20.0,
+          "precipitation_sum": 15.7
+        },
+        {
+          "date": "2026-07-21",
+          "weather_description": "Giông",
+          "temp_max": 26.0,
+          "temp_min": 20.0,
+          "precipitation_sum": 11.9
+        },
+        {
+          "date": "2026-07-22",
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 24.5,
+          "temp_min": 19.6,
+          "precipitation_sum": 21.6
+        },
+        {
+          "date": "2026-07-23",
+          "weather_description": "Giông",
+          "temp_max": 23.6,
+          "temp_min": 19.0,
+          "precipitation_sum": 34.3
+        }
+      ],
+      "alerts": []
+    },
+    "tua_chua": {
+      "name": "Huyện Tủa Chùa",
+      "coordinates": {
+        "lat": 21.4667,
+        "lon": 103.4333
+      },
+      "elevation_m": 1565.0,
+      "current": {
+        "temperature_c": 20.5,
+        "humidity_percent": 91,
+        "precipitation_mm": 1.1,
+        "weather_code": 96,
+        "weather_description": "Giông kèm mưa đá nhẹ",
+        "wind_speed_kmh": 16.8,
+        "wind_direction_deg": 253
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_description": "Giông",
+          "temp_max": 20.6,
+          "temp_min": 16.7,
+          "precipitation_sum": 33.9
+        },
+        {
+          "date": "2026-07-18",
+          "weather_description": "Giông",
+          "temp_max": 21.5,
+          "temp_min": 17.0,
+          "precipitation_sum": 12.9
+        },
+        {
+          "date": "2026-07-19",
+          "weather_description": "Mưa phùn nặng",
+          "temp_max": 20.5,
+          "temp_min": 17.3,
+          "precipitation_sum": 6.0
+        },
+        {
+          "date": "2026-07-20",
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 18.4,
+          "temp_min": 16.8,
+          "precipitation_sum": 13.7
+        },
+        {
+          "date": "2026-07-21",
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 20.2,
+          "temp_min": 16.8,
+          "precipitation_sum": 25.7
+        },
+        {
+          "date": "2026-07-22",
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 21.4,
+          "temp_min": 16.6,
+          "precipitation_sum": 13.1
+        },
+        {
+          "date": "2026-07-23",
+          "weather_description": "Mưa rào vừa",
+          "temp_max": 18.5,
+          "temp_min": 16.4,
+          "precipitation_sum": 18.7
+        }
+      ],
+      "alerts": []
+    },
+    "muong_ang": {
+      "name": "Huyện Mường Ảng",
+      "coordinates": {
+        "lat": 21.8167,
+        "lon": 103.0833
+      },
+      "elevation_m": 889.0,
+      "current": {
+        "temperature_c": 23.2,
+        "humidity_percent": 92,
+        "precipitation_mm": 0.7,
+        "weather_code": 95,
+        "weather_description": "Giông",
+        "wind_speed_kmh": 7.5,
+        "wind_direction_deg": 213
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_description": "Giông",
+          "temp_max": 24.2,
+          "temp_min": 20.8,
+          "precipitation_sum": 49.1
+        },
+        {
+          "date": "2026-07-18",
+          "weather_description": "Giông",
+          "temp_max": 25.9,
+          "temp_min": 20.9,
+          "precipitation_sum": 27.4
+        },
+        {
+          "date": "2026-07-19",
+          "weather_description": "Giông",
+          "temp_max": 23.1,
+          "temp_min": 21.0,
+          "precipitation_sum": 25.0
+        },
+        {
+          "date": "2026-07-20",
+          "weather_description": "Mưa rào vừa",
+          "temp_max": 23.9,
+          "temp_min": 20.7,
+          "precipitation_sum": 12.1
+        },
+        {
+          "date": "2026-07-21",
+          "weather_description": "Giông",
+          "temp_max": 26.4,
+          "temp_min": 20.7,
+          "precipitation_sum": 10.7
+        },
+        {
+          "date": "2026-07-22",
+          "weather_description": "Giông",
+          "temp_max": 24.1,
+          "temp_min": 19.8,
+          "precipitation_sum": 26.9
+        },
+        {
+          "date": "2026-07-23",
+          "weather_description": "Mưa rào vừa",
+          "temp_max": 24.4,
+          "temp_min": 20.0,
+          "precipitation_sum": 39.1
+        }
+      ],
+      "alerts": []
+    },
+    "muong_cha": {
+      "name": "Huyện Mường Chà",
+      "coordinates": {
+        "lat": 22.0833,
+        "lon": 102.4333
+      },
+      "elevation_m": 1564.0,
+      "current": {
+        "temperature_c": 19.7,
+        "humidity_percent": 99,
+        "precipitation_mm": 0.7,
+        "weather_code": 95,
+        "weather_description": "Giông",
+        "wind_speed_kmh": 8.7,
+        "wind_direction_deg": 223
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 20.3,
+          "temp_min": 17.0,
+          "precipitation_sum": 43.8
+        },
+        {
+          "date": "2026-07-18",
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 20.5,
+          "temp_min": 17.2,
+          "precipitation_sum": 31.7
+        },
+        {
+          "date": "2026-07-19",
+          "weather_description": "Mưa phùn nặng",
+          "temp_max": 18.3,
+          "temp_min": 17.2,
+          "precipitation_sum": 12.8
+        },
+        {
+          "date": "2026-07-20",
+          "weather_description": "Mưa rào nặng",
+          "temp_max": 22.5,
+          "temp_min": 16.9,
+          "precipitation_sum": 41.5
+        },
+        {
+          "date": "2026-07-21",
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 24.6,
+          "temp_min": 16.8,
+          "precipitation_sum": 11.8
+        },
+        {
+          "date": "2026-07-22",
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 23.9,
+          "temp_min": 17.0,
+          "precipitation_sum": 8.4
+        },
+        {
+          "date": "2026-07-23",
+          "weather_description": "Mưa rào vừa",
+          "temp_max": 20.5,
+          "temp_min": 16.5,
+          "precipitation_sum": 36.3
+        }
+      ],
+      "alerts": [
+        {
+          "type": "high_humidity",
+          "severity": "info",
+          "value": 99,
+          "unit": "%",
+          "action": "Độ ẩm rất cao, cảnh giác sương mù",
+          "timestamp": "2026-07-17T14:15:54.003367"
+        }
+      ]
+    },
+    "muong_nhe": {
+      "name": "Huyện Mường Nhé",
+      "coordinates": {
+        "lat": 22.4167,
+        "lon": 102.3
+      },
+      "elevation_m": 923.0,
+      "current": {
+        "temperature_c": 25.1,
+        "humidity_percent": 94,
+        "precipitation_mm": 1.9,
+        "weather_code": 96,
+        "weather_description": "Giông kèm mưa đá nhẹ",
+        "wind_speed_kmh": 2.8,
+        "wind_direction_deg": 195
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 25.2,
+          "temp_min": 20.4,
+          "precipitation_sum": 56.3
+        },
+        {
+          "date": "2026-07-18",
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 27.2,
+          "temp_min": 20.7,
+          "precipitation_sum": 32.1
+        },
+        {
+          "date": "2026-07-19",
+          "weather_description": "Giông",
+          "temp_max": 23.1,
+          "temp_min": 20.9,
+          "precipitation_sum": 23.6
+        },
+        {
+          "date": "2026-07-20",
+          "weather_description": "Giông",
+          "temp_max": 27.5,
+          "temp_min": 20.7,
+          "precipitation_sum": 38.9
+        },
+        {
+          "date": "2026-07-21",
+          "weather_description": "Giông",
+          "temp_max": 28.2,
+          "temp_min": 20.2,
+          "precipitation_sum": 15.9
+        },
+        {
+          "date": "2026-07-22",
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 28.1,
+          "temp_min": 20.1,
+          "precipitation_sum": 6.0
+        },
+        {
+          "date": "2026-07-23",
+          "weather_description": "Mưa rào vừa",
+          "temp_max": 23.4,
+          "temp_min": 20.2,
+          "precipitation_sum": 28.2
+        }
+      ],
+      "alerts": []
+    },
+    "dien_bien_dong": {
+      "name": "Huyện Điện Biên Đông",
+      "coordinates": {
+        "lat": 21.1833,
+        "lon": 103.55
+      },
+      "elevation_m": 415.0,
+      "current": {
+        "temperature_c": 28.1,
+        "humidity_percent": 82,
+        "precipitation_mm": 0.1,
+        "weather_code": 51,
+        "weather_description": "Mưa phùn nhẹ",
+        "wind_speed_kmh": 12.5,
+        "wind_direction_deg": 266
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_description": "Giông",
+          "temp_max": 28.7,
+          "temp_min": 24.1,
+          "precipitation_sum": 15.8
+        },
+        {
+          "date": "2026-07-18",
+          "weather_description": "Giông",
+          "temp_max": 29.2,
+          "temp_min": 24.0,
+          "precipitation_sum": 22.2
+        },
+        {
+          "date": "2026-07-19",
+          "weather_description": "Mưa phùn nặng",
+          "temp_max": 26.7,
+          "temp_min": 24.0,
+          "precipitation_sum": 11.2
+        },
+        {
+          "date": "2026-07-20",
+          "weather_description": "Mưa phùn vừa",
+          "temp_max": 26.1,
+          "temp_min": 23.5,
+          "precipitation_sum": 10.4
+        },
+        {
+          "date": "2026-07-21",
+          "weather_description": "Giông",
+          "temp_max": 27.4,
+          "temp_min": 23.8,
+          "precipitation_sum": 19.5
+        },
+        {
+          "date": "2026-07-22",
+          "weather_description": "Giông",
+          "temp_max": 28.0,
+          "temp_min": 23.6,
+          "precipitation_sum": 19.5
+        },
+        {
+          "date": "2026-07-23",
+          "weather_description": "Mưa phùn vừa",
+          "temp_max": 27.1,
+          "temp_min": 23.1,
+          "precipitation_sum": 10.5
+        }
+      ],
+      "alerts": []
+    },
+    "nam_po": {
+      "name": "Huyện Nậm Pồ",
+      "coordinates": {
+        "lat": 21.65,
+        "lon": 103.1167
+      },
+      "elevation_m": 676.0,
+      "current": {
+        "temperature_c": 24.8,
+        "humidity_percent": 98,
+        "precipitation_mm": 0.6,
+        "weather_code": 80,
+        "weather_description": "Mưa rào nhẹ",
+        "wind_speed_kmh": 7.3,
+        "wind_direction_deg": 234
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 26.0,
+          "temp_min": 22.3,
+          "precipitation_sum": 36.8
+        },
+        {
+          "date": "2026-07-18",
+          "weather_description": "Giông",
+          "temp_max": 27.5,
+          "temp_min": 22.5,
+          "precipitation_sum": 19.0
+        },
+        {
+          "date": "2026-07-19",
+          "weather_description": "Giông",
+          "temp_max": 25.5,
+          "temp_min": 22.6,
+          "precipitation_sum": 16.1
+        },
+        {
+          "date": "2026-07-20",
+          "weather_description": "Mưa rào nhẹ",
+          "temp_max": 24.2,
+          "temp_min": 22.3,
+          "precipitation_sum": 12.4
+        },
+        {
+          "date": "2026-07-21",
+          "weather_description": "Giông",
+          "temp_max": 27.4,
+          "temp_min": 22.1,
+          "precipitation_sum": 8.7
+        },
+        {
+          "date": "2026-07-22",
+          "weather_description": "Giông",
+          "temp_max": 26.0,
+          "temp_min": 21.5,
+          "precipitation_sum": 17.9
+        },
+        {
+          "date": "2026-07-23",
+          "weather_description": "Mưa rào nặng",
+          "temp_max": 25.7,
+          "temp_min": 21.6,
+          "precipitation_sum": 44.1
+        }
+      ],
+      "alerts": []
+    },
+    "muong_lay": {
+      "name": "Thị xã Mường Lay",
+      "coordinates": {
+        "lat": 22.5,
+        "lon": 102.6833
+      },
+      "elevation_m": 1240.0,
+      "current": {
+        "temperature_c": 23.2,
+        "humidity_percent": 92,
+        "precipitation_mm": 0.2,
+        "weather_code": 53,
+        "weather_description": "Mưa phùn vừa",
+        "wind_speed_kmh": 3.0,
+        "wind_direction_deg": 237
+      },
+      "daily_forecast": [
+        {
+          "date": "2026-07-17",
+          "weather_description": "Giông",
+          "temp_max": 24.6,
+          "temp_min": 19.5,
+          "precipitation_sum": 49.8
+        },
+        {
+          "date": "2026-07-18",
+          "weather_description": "Giông",
+          "temp_max": 24.6,
+          "temp_min": 19.8,
+          "precipitation_sum": 41.5
+        },
+        {
+          "date": "2026-07-19",
+          "weather_description": "Mưa rào vừa",
+          "temp_max": 21.6,
+          "temp_min": 20.1,
+          "precipitation_sum": 43.6
+        },
+        {
+          "date": "2026-07-20",
+          "weather_description": "Giông kèm mưa đá nhẹ",
+          "temp_max": 23.8,
+          "temp_min": 20.1,
+          "precipitation_sum": 22.9
+        },
+        {
+          "date": "2026-07-21",
+          "weather_description": "Mưa phùn vừa",
+          "temp_max": 24.7,
+          "temp_min": 19.5,
+          "precipitation_sum": 9.0
+        },
+        {
+          "date": "2026-07-22",
+          "weather_description": "Giông",
+          "temp_max": 23.1,
+          "temp_min": 19.5,
+          "precipitation_sum": 18.5
+        },
+        {
+          "date": "2026-07-23",
+          "weather_description": "Giông",
+          "temp_max": 21.8,
+          "temp_min": 18.9,
+          "precipitation_sum": 66.0
+        }
+      ],
+      "alerts": []
+    }
+  }
+}

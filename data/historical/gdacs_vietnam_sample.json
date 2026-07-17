@@ -1,0 +1,12 @@
+{
+  "features": [
+    {
+      "eventtype": "FL",
+      "name": "Flood in Vietnam",
+      "fromdate": "2026-06-25T01:00:00",
+      "todate": "2026-07-06T01:00:00",
+      "alertlevel": "Green",
+      "country": "Vietnam"
+    }
+  ]
+}

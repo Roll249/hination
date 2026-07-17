@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import { logger } from './config/logger.js';
+import { logger } from '../config/logger.js';
 
 export interface AIGradingRequest {
   jobId: string;

@@ -1,0 +1,54 @@
+{
+  "report_time": "2026-07-17T14:15:58.868885",
+  "province": "Điện Biên",
+  "collection_summary": {
+    "collection_time": "2026-07-17T14:15:48.628434",
+    "status": "success",
+    "data_sources": [
+      "Open-Meteo API",
+      "KTTV Website"
+    ],
+    "districts_collected": 9,
+    "alerts_generated": 1,
+    "files_created": [
+      "/home/khang/khang_lab/hination-hackathon/data/weather_comprehensive.json",
+      "/home/khang/khang_lab/hination-hackathon/data/raw/kttv_dien_bien_20260717_141558.json",
+      "/home/khang/khang_lab/hination-hackathon/data/alerts_current.json"
+    ]
+  },
+  "data_coverage": {
+    "districts": 9,
+    "total_districts": 9,
+    "coverage_percent": 100.0
+  },
+  "alert_thresholds": {
+    "heavy_rain": ">15 mm/h",
+    "extreme_rain": ">30 mm/h",
+    "cold_wave": "<5°C",
+    "strong_wind": ">40 km/h"
+  },
+  "weather_codes": {
+    "0": "Trời quang",
+    "1": "Ít mây",
+    "2": "Nhiều mây",
+    "3": "U ám",
+    "45": "Sương mù",
+    "48": "Sương mù đóng băng",
+    "51": "Mưa phùn nhẹ",
+    "53": "Mưa phùn vừa",
+    "55": "Mưa phùn nặng",
+    "61": "Mưa nhẹ",
+    "63": "Mưa vừa",
+    "65": "Mưa to",
+    "71": "Tuyết nhẹ",
+    "73": "Tuyết vừa",
+    "75": "Tuyết to",
+    "80": "Mưa rào nhẹ",
+    "81": "Mưa rào vừa",
+    "82": "Mưa rào nặng",
+    "95": "Giông",
+    "96": "Giông kèm mưa đá nhẹ",
+    "99": "Giông kèm mưa đá nặng"
+  },
+  "next_update": "2026-07-17T15:00:00"
+}
