@@ -33,3 +33,27 @@ rabbitmq_data/
 tmp/
 temp/
 *.tmp
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Pipeline data
+# Dữ liệu train, dữ liệu tải từ API và kết quả dự báo đều được pipeline tái tạo.
+# Chỉ giữ dữ liệu địa lý tĩnh cần cho dashboard trong Git.
+data/**
+!data/geo/
+!data/geo/**
+
+# Model artifacts
+model/checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+artifacts/
+outputs/
+runs/
+wandb/
