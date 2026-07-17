@@ -492,6 +492,7 @@ def run_disaster_forecast():
 
         disaster_forecast[did] = {
             'district_id': did,
+            'ma': terrain.get('ma', ''),
             'name': terrain['name'],
             'coordinates': {'lat': terrain['lat'], 'lon': terrain['lon']},
             'terrain': {
