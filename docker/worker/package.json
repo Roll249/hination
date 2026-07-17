@@ -1,0 +1,32 @@
+{
+  "name": "hination-worker",
+  "version": "1.0.0",
+  "description": "Hination AI Grading System - Worker",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "eslint src/**/*.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.1",
+    "pg": "^8.11.3",
+    "amqplib": "^0.10.3",
+    "axios": "^1.6.7",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.5",
+    "@types/pg": "^8.10.9",
+    "@types/amqplib": "^0.10.4",
+    "@types/uuid": "^9.0.7",
+    "typescript": "^5.3.3",
+    "tsx": "^4.7.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
+    "eslint": "^8.56.0"
+  }
+}
